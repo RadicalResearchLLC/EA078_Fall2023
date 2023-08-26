@@ -13,7 +13,7 @@ book:
     - part: weather.qmd
       chapters:
       - information.qmd
-      - coding1.qmd
+     # - coding1.qmd
       - maps1.qmd
       - maps2.qmd
       - chartJunk.qmd
