@@ -1,0 +1,220 @@
+# Research sites {#sec-research}
+
+::: {.callout-note appearance="simple"}
+Today is going to be a few examples from class Group Projects
+:::
+
+## Food Insecurity
+
+The Food sovereignty group has a couple of datasets that need some spatial processing.  Here's a walkthrough of some spatial joins and statistics
+
+### Load libraries
+
+```{r}
+library(tidyverse)
+library(sf)
+library(leaflet)
+library(googlesheets4)
+```
+
+Team Food Sovereignty found a nice resource on Food Insecurity from [Feeding America](https://www.feedingamerica.org/).  
+
+Here's the food insecurity dataset in a [google sheet](https://docs.google.com/spreadsheets/d/1OVvr9GnRItcDlrwM3JbxktHeaeLbi1nS/edit#gid=949936614)
+
+I can't read directly from this sheet because I don't have edit access, so I downloaded it to a spreadsheet.  I copied to my [own sheet](https://docs.google.com/spreadsheets/d/1ruW9toAaXyqQ3in57b-afeIzZmiP0K85_bKL47b3dTg/edit#gid=0).  I tried reading it in via `googlesheets4` package but that was causing weird errors, so I downloaded a .csv, moved it to the working directory and imported it that way.  
+
+I'll load the janitor library cause the column names on this worksheet are **horrible** Excel abominations.  
+
+```{r}
+#| label: load janitor
+#| warning: false
+#| echo: true
+
+library(janitor)
+```
+
+Now read the data with `read_csv()`
+
+```{r}
+#| label: import food for California
+#| warning: false
+#| echo: true
+
+food <- read_csv('MMG2022_2020-2019_FeedingAmerica.xlsx - County.csv')  %>% 
+  ##Fix column names
+  clean_names() %>% 
+  ##select California data for 2020
+  filter(state == 'CA') %>% 
+  filter(year == 2020)
+
+head(food)
+
+```
+
+We can add that to a map, if we had a shapefile of California counties. The [California open data portal](https://data.ca.gov/dataset/ca-geographic-boundaries) has that info.
+
+Doing this one time, point and click is ok. Here are the steps.
+
+-   Download the zipped shapefile (not code)
+-   Move it to your working directory (not code)
+-   Unzip/extract the zip file (code or not code - your choice)
+-   Read in shapefile using `read_sf()` - (code)
+-   Transform to WGS84 coordinate reference system (code)
+-   Make a map (code)
+
+```{r}
+#| label: read, and transform steps for CA county shapes
+#| echo: true
+
+CA_county_dir <- 'CA_counties'
+
+#read the data
+CA_county <- read_sf(dsn = CA_county_dir) %>% 
+ st_transform("+proj=longlat +ellps=WGS84 +datum=WGS84")
+
+head(CA_county)
+
+```
+
+@fig-CA_counties shows a map of California using `ggplot` and `geom_sf`
+
+```{r}
+#| label: fig-CA_counties
+#| echo: true
+#| warning: false
+#| fig-cap: California Counties
+
+ggplot(CA_county) +
+  geom_sf() +
+  theme_void() + 
+  geom_sf_text(aes(label = NAME), size = 1.5) +
+  labs(x = '', y = '')
+
+```
+
+### Time for a quick data science lesson
+
+Dataset `CA_county` has the geospatial information. Dataset `food` has the food insecurity data but doesn't have the geospatial information included.
+
+Putting the two datasets together is required to make the map to show spatial patterns in food insecurity. Both datasets have a field that indicates the County Name. The `tidyverse` `dplyr` package has functions to [join datasets](https://dplyr.tidyverse.org/reference/mutate-joins.html) by common variables.
+
+-   `inner_join()` - keep only records present in both datasets.
+-   `left_join()` - keep **all** records from the *first* dataset and only matching variables from the second. Fill missing with **NA**
+-   `right_join()` - keep **all** records from the *second* dataset and only matching variables from the first. Fill missing with **NA**
+-   `full_join()` - keep **all** records both datasets - fill **NA** in any records where dataset is missing from one of the datasets.
+-   `anti_join()` - keep **only** records in the first dataset that don't occur in the second dataset.
+
+![Join Venn Diagrams - credit **Tavareshugo** github](https://tavareshugo.github.io/r-intro-tidyverse-gapminder/fig/07-dplyr_joins.svg)
+
+For the county case, California has 58 counties, but I will try an inner join to make sure that every county name matches.
+
+Note, the `food` dataset had an extra bit of text in its county column, we'll use a tiny bit of language parsing to chop that out so the columns will match **exactly**.
+
+The string we need to remove is ` County, California`. The function we want is `str_remove()` from `stringr` part of the base `tidyverse`.
+
+```{r}
+#| label: remove extraneous text
+#| echo: true
+#| warning: false
+
+food2 <- food %>% 
+  mutate(county = str_remove(county_state, ' County, California'))
+
+food2$county
+
+food_map <- inner_join(CA_county, food2,
+                                by = c('NAME' = 'county')) %>% 
+  mutate(pct_food_insecure = as.numeric(str_remove(overall_food_insecurity_rate_1_year, '%')))
+
+head(food_map)
+
+
+```
+Awesome! 
+
+@fig-MapInsecurity shows the percent food insecurity by county.
+
+```{r}
+#| label: fig-MapInsecurity
+#| echo: true
+#| fig-cap: Percent of food insecure persons by county
+
+  ggplot(data = food_map, aes(fill = pct_food_insecure)) +
+  geom_sf(color = 'grey60') + 
+  geom_sf_text(aes(label = NAME), size = 1.5, color = 'white') +
+  scale_fill_viridis_c() +
+  theme_void() +
+  labs(fill = 'food insecurity (%)')
+
+```
+
+
+## Air Toxics Sacrifice Zones Resources
+
+[Toxics Release Inventory Data](https://www.epa.gov/toxics-release-inventory-tri-program/tri-basic-data-files-calendar-years-1987-present)
+
+[National Air Toxics Dashboard](https://radicalresearch.shinyapps.io/ToxicsDashboard/)
+
+[Professor Mike](https://scholar.google.com/citations?user=QcafrNIAAAAJ&hl=en)
+
+### Toxics Release Inventory
+
+Steps:
+
+-   Download the data from [TRI](https://www.epa.gov/toxics-release-inventory-tri-program/tri-basic-data-files-calendar-years-1987-present) - not code
+-   Move it to your working directory (not code)
+-   Read in `.csv` using `read_csv()` - (code)
+-   `filter()` for pollutants and sites of interest
+-   Display on map
+
+#### Import data from working directory
+
+```{r}
+#| label: import dataset
+#| echo: true
+
+TRI_2021 <- read_csv('2021_us.csv') %>% 
+  janitor::clean_names() %>% 
+  filter(x34_chemical == 'Ethylene oxide') %>% 
+  select(x4_facility_name, x6_city, x12_latitude, x13_longitude, x48_5_1_fugitive_air, x49_5_2_stack_air, x62_on_site_release_total) %>% 
+  rename(facility = x4_facility_name,
+         city = x6_city,
+         lat = x12_latitude,
+         lng = x13_longitude,
+         emissions = x62_on_site_release_total)
+
+head(TRI_2021)
+
+```
+
+@fig-EtO
+
+```{r}
+#| label: fig-EtO
+#| fig-cap: Ethylene oxide facilities reporting to TRI in 2021
+#| echo: true
+
+library(leaflet)
+library(htmltools)
+
+leaflet() %>% 
+  addTiles() %>% 
+  addProviderTiles(provider = providers$Esri.WorldImagery, 
+                     group = 'Imagery') %>% 
+  addLayersControl(baseGroups = c('Basemap', 'Imagery'), overlayGroups = 'TRI EtO Facilities',
+                   options = layersControlOptions(collapsed = FALSE)) %>% 
+  addCircles(data = TRI_2021, weight = 1, stroke = FALSE,
+             color = 'red',
+             radius = ~emissions * 10, popup = ~facility,
+             opacity = 0.5,
+             group = 'TRI EtO Facilities') %>%
+  addCircles(data = TRI_2021, color = 'red', opacity = 0.3)
+
+```
+
+Examine this map and tell me at least three things that are wrong with it.
+
+
+
+
+
