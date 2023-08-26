@@ -14,6 +14,11 @@ All code used is on [github](https://github.com/RadicalResearchLLC/EnviroDataVis
 
 Any readings assigned will be emailed to students and/or posted to Box for download. Box will be linked within the course materials for assignments.
 
+::: {.callout-note appearance="simple"}
+Course layout and materials listed on course materials page are subject to change due to shifting conditions that occur during the course of the semester. I will update course materials on a weekly basis to reflect the changing conditions and expectations throughout the semester.  
+:::
+
+
 ## Course Goals & Learning Objectives
 
 Upon successful completion of this course, students will
