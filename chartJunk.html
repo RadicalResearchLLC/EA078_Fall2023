@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Environmental Data Visualization - 4&nbsp; Chartjunk, Data-Ink Ratios, and Visualization Theory</title>
+<title>Environmental Data Visualization - 5&nbsp; Chartjunk, Data-Ink Ratios, and Visualization Theory</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./weather.html">Unit 1: Weather and Climate</a></li><li class="breadcrumb-item"><a href="./chartJunk.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Chartjunk, Data-Ink Ratios, and Visualization Theory</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./weather.html">Unit 1: Weather and Climate</a></li><li class="breadcrumb-item"><a href="./chartJunk.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Chartjunk, Data-Ink Ratios, and Visualization Theory</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -128,26 +128,32 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./coding1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coding in R - Basics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./maps1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introduction to Spatial Visualization - 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Spatial Visualization - 1</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./maps2.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Spatial Visualization 2</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Introduction to Spatial Visualization 2</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./chartJunk.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Chartjunk, Data-Ink Ratios, and Visualization Theory</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Chartjunk, Data-Ink Ratios, and Visualization Theory</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./assignment1.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Assignments for Unit 1</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Assignments for Unit 1</span></span></a>
   </div>
 </li>
       </ul>
@@ -197,10 +203,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#chartjunk" id="toc-chartjunk" class="nav-link active" data-scroll-target="#chartjunk"><span class="header-section-number">4.1</span> Chartjunk</a></li>
-  <li><a href="#data-ink-ratios" id="toc-data-ink-ratios" class="nav-link" data-scroll-target="#data-ink-ratios"><span class="header-section-number">4.2</span> Data-Ink Ratios</a></li>
-  <li><a href="#what-makes-a-map-in-leaflet-bad" id="toc-what-makes-a-map-in-leaflet-bad" class="nav-link" data-scroll-target="#what-makes-a-map-in-leaflet-bad"><span class="header-section-number">4.3</span> What makes a map in <code>leaflet</code> bad?</a></li>
-  <li><a href="#class-exercise---work-on-group-visualization" id="toc-class-exercise---work-on-group-visualization" class="nav-link" data-scroll-target="#class-exercise---work-on-group-visualization"><span class="header-section-number">4.4</span> Class Exercise - work on group visualization</a></li>
+  <li><a href="#chartjunk" id="toc-chartjunk" class="nav-link active" data-scroll-target="#chartjunk"><span class="header-section-number">5.1</span> Chartjunk</a></li>
+  <li><a href="#data-ink-ratios" id="toc-data-ink-ratios" class="nav-link" data-scroll-target="#data-ink-ratios"><span class="header-section-number">5.2</span> Data-Ink Ratios</a></li>
+  <li><a href="#what-makes-a-map-in-leaflet-bad" id="toc-what-makes-a-map-in-leaflet-bad" class="nav-link" data-scroll-target="#what-makes-a-map-in-leaflet-bad"><span class="header-section-number">5.3</span> What makes a map in <code>leaflet</code> bad?</a></li>
+  <li><a href="#class-exercise---work-on-group-visualization" id="toc-class-exercise---work-on-group-visualization" class="nav-link" data-scroll-target="#class-exercise---work-on-group-visualization"><span class="header-section-number">5.4</span> Class Exercise - work on group visualization</a></li>
   </ul>
 </nav>
     </div>
@@ -209,7 +215,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span id="sec-chartJunk" class="quarto-section-identifier"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Chartjunk, Data-Ink Ratios, and Visualization Theory</span></span></h1>
+<h1 class="title"><span id="sec-chartJunk" class="quarto-section-identifier"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Chartjunk, Data-Ink Ratios, and Visualization Theory</span></span></h1>
 </div>
 
 
@@ -234,8 +240,8 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-<section id="chartjunk" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="chartjunk"><span class="header-section-number">4.1</span> Chartjunk</h2>
+<section id="chartjunk" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="chartjunk"><span class="header-section-number">5.1</span> Chartjunk</h2>
 <p>Chart Junk is a term first used by Edward Tufte in his book <em>The Quantitative Display of Visual Information</em>. He defined it as:</p>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
@@ -249,31 +255,31 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>In other words, Tufte believes that embellishment, decoration, and ornamentation is typically bad in a data visualization. While I can talk about this, it is better to just show examples of chartjunk.</p>
 <p>Just do an image search for <em>chartjunk</em> in your browser. Here’s a few examples.</p>
-<p><a href="#fig-Mario">Figure&nbsp;<span>4.1</span></a> shows a very simple bar chart with lots of colors, patterns, and</p>
+<p><a href="#fig-Mario">Figure&nbsp;<span>5.1</span></a> shows a very simple bar chart with lots of colors, patterns, and</p>
 <div id="fig-Mario" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Chartjunk-example.svg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;4.1: Mario looking bar chart</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;5.1: Mario looking bar chart</figcaption>
 </figure>
 </div>
-<p><a href="#fig-Diamonds">Figure&nbsp;<span>4.2</span></a> shows a price line chart embellished with a decorative reclining lady. This is what Tufte calls a <strong>Duck</strong> - elevating design over data.</p>
+<p><a href="#fig-Diamonds">Figure&nbsp;<span>5.2</span></a> shows a price line chart embellished with a decorative reclining lady. This is what Tufte calls a <strong>Duck</strong> - elevating design over data.</p>
 <div id="fig-Diamonds" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="https://businessq-software.com/wp-content/uploads/2019/02/6-1.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;4.2: Infamous diamonds line</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;5.2: Infamous diamonds line</figcaption>
 </figure>
 </div>
-<p><a href="#fig-MentalHealth">Figure&nbsp;<span>4.3</span></a> shows a pie chart of video analysis by medical professionals. Only three values are shown, yet there is a flourish of colors, cartoons, clipart, and embellishment.</p>
+<p><a href="#fig-MentalHealth">Figure&nbsp;<span>5.3</span></a> shows a pie chart of video analysis by medical professionals. Only three values are shown, yet there is a flourish of colors, cartoons, clipart, and embellishment.</p>
 <div id="fig-MentalHealth" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="https://preview.redd.it/dwq6o8q4ko2a1.png?width=1536&amp;format=png&amp;auto=webp&amp;s=cfab5e9fc693e6f07343f8d6b4f919bdf35d8120" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;4.3: Pie Chartjunk</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;5.3: Pie Chartjunk</figcaption>
 </figure>
 </div>
 <p>Tufte was pretty crufty about anything that was not minimalist. He is an pro-modernist design and anti-baroque design. And there is some research that suggests more ornamented and interesting visualizations stick with people longer than minimal designs.</p>
 </section>
-<section id="data-ink-ratios" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="data-ink-ratios"><span class="header-section-number">4.2</span> Data-Ink Ratios</h2>
+<section id="data-ink-ratios" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="data-ink-ratios"><span class="header-section-number">5.2</span> Data-Ink Ratios</h2>
 <p>The second Tufte-ism is the ratio of data-ink. This is a quantitative measure indicating the amount of ‘ink’ used to convey data/information in a visualization. Any ‘ink’ not conveying information is considered superfluous and redundant.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -286,13 +292,13 @@ ul.task-list li input[type="checkbox"] {
 <p>Tufte would definitely prefer <a href="http://radicalresearch.llc/EDVcourse/maps2.html#fig-ggMinimal">Figure 5-5</a> where we removed all that background and even the frame around the outside of the map.</p>
 <p>This is an aesthetic preference, especially in the modern era where almost all of the visualization we engage with is on a computer/tablet/phone. There is no amount of pixel-ink that is consumed. And in some cases the brightness of a white background may be antithetical and harmful, such as in the ProPublica Sacrifice Zone visualizations as shown in <a href="http://radicalresearch.llc/EDVcourse/sacrifice.html#fig-proPublica">Figure 17.2</a>.</p>
 </section>
-<section id="what-makes-a-map-in-leaflet-bad" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="what-makes-a-map-in-leaflet-bad"><span class="header-section-number">4.3</span> What makes a map in <code>leaflet</code> bad?</h2>
+<section id="what-makes-a-map-in-leaflet-bad" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="what-makes-a-map-in-leaflet-bad"><span class="header-section-number">5.3</span> What makes a map in <code>leaflet</code> bad?</h2>
 <p>Most of the teams are using <code>leaflet</code> maps. What things in <code>leaflet</code> look bad and don’t work?</p>
 <p>Discuss</p>
 </section>
-<section id="class-exercise---work-on-group-visualization" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="class-exercise---work-on-group-visualization"><span class="header-section-number">4.4</span> Class Exercise - work on group visualization</h2>
+<section id="class-exercise---work-on-group-visualization" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="class-exercise---work-on-group-visualization"><span class="header-section-number">5.4</span> Class Exercise - work on group visualization</h2>
 <p>Here’s a framework for the final group visualization from the <a href="https://junkcharts.typepad.com/junk_charts/junk-charts-trifecta-checkup-the-definitive-guide.html">Junk Charts Blog</a></p>
 <ul>
 <li>What is the practical question?</li>
@@ -544,12 +550,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./maps2.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Spatial Visualization 2</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Introduction to Spatial Visualization 2</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./assignment1.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Assignments for Unit 1</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Assignments for Unit 1</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
