@@ -127,7 +127,7 @@ In addition to importing data, sometimes we just to create our own dataset. Let'
 
 I want to show the location of this classroom at the Redford Conservancy and the neighborhood where I live.
 
-I can use [Google Earth](https://earth.google.com/web/) or similar websites to get the latitude and longitude data. Latitude is North and South. Longitude is East and West.
+I can use [Google Maps](https://www.google.com/maps) or similar websites to get the latitude and longitude data. Latitude is North and South. Longitude is East and West.
 
 -   The [Redford Conservancy](https://www.pitzer.edu/redfordconservancy/) is at 34.1100576 N and -117.710074 W.
 -   My zip code 92508 has a [centroid](https://en.wikipedia.org/wiki/Centroid) at 33.8895145 N and -117.319014 W.

@@ -6,11 +6,11 @@ This is an introductory course on the theory and practice of effective communica
 
 ## Course Materials
 
-Go [here](https://mikem-radicalresearch.quarto.pub/environmental-data-visualization/) to see all course materials.
+Go [here](http://radicalresearch.llc/EA078_Fall2023) to see all course materials.
 
 The course materials are built using the [quarto](https://quarto.org/docs/guide) environment which is [R Markdown](https://rmarkdown.rstudio.com/) adjacent, but allows a user to embed functional code in R, Python, Julia, and/or Observable JS.
 
-All code used is on [github](https://github.com/RadicalResearchLLC/EnviroDataVis)
+All code used is on [github](https://github.com/RadicalResearchLLC/EA078_Fall2023)
 
 Any readings assigned will be emailed to students and/or posted to Box for download. Box will be linked within the course materials for assignments.
 
@@ -93,6 +93,7 @@ kableExtra::kable(table.score)
 
 -   TBD on [Pitzer Zoom](https://pitzer.zoom.us/j/2600893680) -
 -   Mondays 9:00 - 9:30 (before class) - in RRC basement
+-   Thursday and Friday at (PICK A TIME!) on zoom
 
 ## Contact Info
 
@@ -100,13 +101,13 @@ The best way to get a hold of me is email: michael_mccarthy\@pitzer.edu You are 
 
 ## Course materials
 
-All course materials will be hosted on [github](https://github.com/RadicalResearchLLC/EnviroDataVis).
+All course materials will be hosted on [github](https://github.com/RadicalResearchLLC/EA078_Fall2023).
 
-Go [here](https://mikem-radicalresearch.quarto.pub/environmental-data-visualization/) to see all course materials.
+Go [here](http://radicalresearch.llc/EA078_Fall2023/) to see all course materials.
 
 ## COVID policy
 
-COVID-19 safety guidelines and recommendations continue to evolve. Please read Pitzer's [Community Messages](https://www.pitzer.edu/pathway-forward/category/community-messages/) and [FAQs](https://www.pitzer.edu/pathway-forward/frequently-asked-questions/faqs/) and visit the Student Health Services (SHS) [COVID page](https://services.claremont.edu/covid/) for the latest campus information and guidance.
+COVID-19 safety guidelines and recommendations continue to evolve. Please read Pitzer's [Pathway Forward](https://www.pitzer.edu/pathway-forward/) and [Support](https://www.pitzer.edu/pathway-forward/covid-19-support/) and visit the Student Health Services (SHS) [COVID page](https://services.claremont.edu/covid/) for the latest campus information and guidance.
 
 ![SneezeCFD](images/COVID_mask.png)
 

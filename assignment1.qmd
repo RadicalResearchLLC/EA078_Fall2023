@@ -10,6 +10,7 @@ This includes the list of assignments for Unit 1
 #| echo: false
 #| warning: false
 library(dplyr)
+library(knitr)
 library(kableExtra)
 
 
@@ -29,8 +30,8 @@ due.Date <- c('Aug 28, 2023',
               'Sept 11, 2023',
               'Sept 11, 2023', 
               'Sept 11, 2023')
-source <- c('https://mikem-radicalresearch.quarto.pub/environmental-data-visualization/tools.html', 
-            'https://mikem-radicalresearch.quarto.pub/environmental-data-visualization/tools.html', 
+source <- c('http://radicalresearch.llc/EA078_Fall2023/tools.html', 
+            'http://radicalresearch.llc/EA078_Fall2023/tools.html', 
             'http://www.scholarpedia.org/article/Visual_salience', 
             'https://r-graphics.org/',
             'https://r4ds.had.co.nz/data-visualisation.html', 
@@ -40,11 +41,11 @@ source <- c('https://mikem-radicalresearch.quarto.pub/environmental-data-visuali
 
 unit1 <- data.frame(assignment, due.Date, source)# %>% 
 
-unit1 %>% mutate(link = cell_spec(row.names(.), 'html', link = source)) %>% 
-  select(-source) %>% 
-  kableExtra::kable('html', escape = FALSE) %>% 
-  kable_material_dark(c('condensed', 'hover')) %>% 
-  column_spec(1, width = '20em') #%>% 
+unit1  %>% mutate(link = cell_spec(assignment, 'html', link = source)) |> 
+  select(-source, -assignment) |> 
+  kableExtra::kable('html', escape = FALSE) |>  
+  kable_styling(bootstrap_options = c('condensed', 'hover'))
+  
   #column_spec(3, link = 'html')
 
 ```

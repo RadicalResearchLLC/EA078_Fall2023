@@ -129,7 +129,7 @@ Problems associated with -
 
 ### **Emotional**
 
-Graphical design or [content](https://epa.maps.arcgis.com/apps/MapSeries/index.html?appid=e5a7e59018c7424eaddcb64b31ba4a41) may be repellent or triggering. In the syllabus, the COVID sneeze imagery is both factual model data and an intentionally gross way of visualizing the data to generate a feeling of disgust.
+Graphical design or [content](https://www.cdc.gov/nchs/nvss/vsrr/covid19/excess_deaths.htm) may be repellent or triggering. In the syllabus, the COVID sneeze imagery is both factual model data and an intentionally gross way of visualizing the data to generate a feeling of disgust.
 
 ![A gross image of particles emissions from a sneeze](images/COVID_mask.png)
 
@@ -233,7 +233,7 @@ How does [CalEnviroScreen](https://oehha.ca.gov/calenviroscreen/report/calenviro
 ![](images/magmaCalEJ.png)
 :::
 
-Looking for more on color palettes? Check out [Berkeley Advanced Media Institute](https://multimedia.journalism.berkeley.edu/tutorials/data-visualization-color/), this [Data Visualization Society](https://chartio.com/learn/charts/how-to-choose-colors-data-visualization/) post, or this [color harmony](https://medium.com/global-maksimum-data-information-technologies/color-harmony-in-data-visualization-2610f9dab390) blog post for marketing design.
+Looking for more on color palettes? Check out this [Data Visualization Society](https://chartio.com/learn/charts/how-to-choose-colors-data-visualization/) post, or this [color harmony](https://medium.com/global-maksimum-data-information-technologies/color-harmony-in-data-visualization-2610f9dab390) blog post for marketing design.
 
 ## Salience
 

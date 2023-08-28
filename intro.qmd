@@ -20,7 +20,7 @@ My pronouns are he/him. Here is some of my background.
 
 -   [Adjunct Professor](https://en.wikipedia.org/wiki/Adjunct_professors_in_North_America) in Department of Environmental Analysis
 -   I have been an Environmental Consultant for \~20 years
-    -   currently I am a sole propietor at [Radical Research LLC](http:/radicalresearch.llc)
+    -   currently I am a sole proprietor at [Radical Research LLC](http://radicalresearch.llc/)
     -   prior to that I worked at a company called [Sonoma Technology, Inc.](https://www.sonomatech.com)
 -   Trained as a chemist/atmospheric chemist
     -   undergrad at [Creighton University](https://www.creighton.edu)
@@ -29,7 +29,7 @@ My pronouns are he/him. Here is some of my background.
     -   games (board, tabletop roleplaying, video games)
     -   yoga
     -   swimming
-    -   fighting warehouse development in my neighborhood as Vice Chair of [Riverside Neighbors Opposing Warehouses](https://sites.google.com/view/rivnow/)
+    -   fighting [warehouse development](https://radicalresearch.shinyapps.io/WarehouseCITY/) in my neighborhood and the IE as Vice Chair of [Riverside Neighbors Opposing Warehouses](https://sites.google.com/view/rivnow/)
 -   My spouse is a Professor of Botany and Plant Sciences at [UC Riverside](https://www.ucr.edu), and my son is a student in middle school
 -   My goals for this course
     -   bounce ideas around for cool new ways of looking at environmental data
