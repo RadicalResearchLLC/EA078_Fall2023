@@ -293,8 +293,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="header-section-number">3.2</span> Acquire Data</h2>
 <p>Import the <code>nc</code> and <code>SoCalEJ</code> datasets again. Refer to <a href="maps1.html"><span>Chapter&nbsp;2</span></a> for details on functions.</p>
 <div class="cell">
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package<span class="op">=</span><span class="st">"sf"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="st">"+proj=longlat +ellps=WGS84 +datum=WGS84"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">nc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">"shape/nc.shp"</span>, package<span class="op">=</span><span class="st">"sf"</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="st">"+proj=longlat +ellps=WGS84 +datum=WGS84"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `nc' from data source 
   `C:\Users\MichaelMcCarthy\AppData\Local\R\win-library\4.2\sf\shape\nc.shp' 
@@ -330,8 +330,8 @@ Geodetic CRS:  +proj=longlat +ellps=WGS84 +datum=WGS84
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">URL.path</span> <span class="op">&lt;-</span> <span class="st">'https://raw.githubusercontent.com/RadicalResearchLLC/EDVcourse/main/CalEJ4/CalEJ.geoJSON'</span></span>
-<span><span class="va">SoCalEJ</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span><span class="va">URL.path</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu">st_transform</span><span class="op">(</span><span class="st">"+proj=longlat +ellps=WGS84 +datum=WGS84"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span><span class="va">SoCalEJ</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="va">URL.path</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="st">"+proj=longlat +ellps=WGS84 +datum=WGS84"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Reading layer `CalEJ' from data source 
   `https://raw.githubusercontent.com/RadicalResearchLLC/EDVcourse/main/CalEJ4/CalEJ.geoJSON' 
@@ -444,23 +444,23 @@ Geodetic CRS:  +proj=longlat +ellps=WGS84 +datum=WGS84
 <span class="header-section-number">3.3.1</span> Visualization functions</h3>
 <ul>
 <li>
-<code>ggplot()</code>
+<code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot()</a></code>
 <ul>
 <li>
-<code>geom_sf()</code> - display <code>sf</code> spatial data</li>
+<code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf()</a></code> - display <code>sf</code> spatial data</li>
 <li>
-<code>theme_bw()</code> - a cleaner background and visualization than default gray background for <code>ggplot</code>
+<code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code> - a cleaner background and visualization than default gray background for <code>ggplot</code>
 </li>
 <li>
-<code>theme_minimal()</code> - minimalist theme</li>
+<code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code> - minimalist theme</li>
 </ul>
 </li>
 </ul></section><section id="make-a-basic-visualization" class="level3" data-number="3.3.2"><h3 data-number="3.3.2" class="anchored" data-anchor-id="make-a-basic-visualization">
 <span class="header-section-number">3.3.2</span> Make a basic visualization</h3>
 <p>Start with the North Carolina data and make a basic <code>ggplot</code> and <code>geom_sf</code> map as shown in <a href="#fig-ggBasic">Figure&nbsp;<span>3.2</span></a>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-ggBasic" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="maps2_files/figure-html/fig-ggBasic-1.png" class="img-fluid figure-img" width="672"></p>
@@ -472,8 +472,8 @@ Geodetic CRS:  +proj=longlat +ellps=WGS84 +datum=WGS84
 <p>In contrast to the <code>leaflet</code> map, the ggplot defaults to showing the x- and y-axis coordinates (latitude and longitude), shows guidelines, and only draws the counties in the dataset, rather than defaulting to showing an interactive map.</p>
 <p><a href="#fig-ggSoCal">Figure&nbsp;<span>3.3</span></a> shows the same style of map replacing <code>nc</code> with <code>SoCalEJ</code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">SoCalEJ</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">SoCalEJ</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-ggSoCal" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="maps2_files/figure-html/fig-ggSoCal-1.png" class="img-fluid figure-img" width="672"></p>
@@ -483,11 +483,11 @@ Geodetic CRS:  +proj=longlat +ellps=WGS84 +datum=WGS84
 </div>
 </section><section id="improve-the-visualization" class="level3" data-number="3.3.3"><h3 data-number="3.3.3" class="anchored" data-anchor-id="improve-the-visualization">
 <span class="header-section-number">3.3.3</span> Improve the Visualization</h3>
-<p>We have many options to improve a <code>ggplot</code> visualization. Let’s start by cleaning up the background using <code>theme_bw()</code>. <code>theme_bw()</code> changes the background from gray to a cleaner black-white style as shown in <a href="#fig-ggTheme">Figure&nbsp;<span>3.4</span></a>.</p>
+<p>We have many options to improve a <code>ggplot</code> visualization. Let’s start by cleaning up the background using <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code>. <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw()</a></code> changes the background from gray to a cleaner black-white style as shown in <a href="#fig-ggTheme">Figure&nbsp;<span>3.4</span></a>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-ggTheme" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="maps2_files/figure-html/fig-ggTheme-1.png" class="img-fluid figure-img" width="672"></p>
@@ -495,11 +495,11 @@ Geodetic CRS:  +proj=longlat +ellps=WGS84 +datum=WGS84
 </div>
 </div>
 </div>
-<p>We can apply a minimalist aesthetic by choosing <code>theme_minimal()</code> as shown in <a href="#fig-ggMinimal">Figure&nbsp;<span>3.5</span></a></p>
+<p>We can apply a minimalist aesthetic by choosing <code><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal()</a></code> as shown in <a href="#fig-ggMinimal">Figure&nbsp;<span>3.5</span></a></p>
 <div class="cell">
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-ggMinimal" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="maps2_files/figure-html/fig-ggMinimal-1.png" class="img-fluid figure-img" width="672"></p>
@@ -518,11 +518,11 @@ Geodetic CRS:  +proj=longlat +ellps=WGS84 +datum=WGS84
 <li>fermenter</li>
 <li>viridis</li>
 </ul>
-<p>First let’s use the default palette for <strong>BIR79</strong> to show the county birthrates in 1979. Adding <code>fill = BIR79</code> to the <code>aes()</code> defaults to the <em>Blues</em> palette. <a href="#fig-countyFill">Figure&nbsp;<span>3.6</span></a> shows the result of adding a fill color scale.</p>
+<p>First let’s use the default palette for <strong>BIR79</strong> to show the county birthrates in 1979. Adding <code>fill = BIR79</code> to the <code><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes()</a></code> defaults to the <em>Blues</em> palette. <a href="#fig-countyFill">Figure&nbsp;<span>3.6</span></a> shows the result of adding a fill color scale.</p>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">BIR79</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">BIR79</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-countyFill" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="maps2_files/figure-html/fig-countyFill-1.png" class="img-fluid figure-img" width="672"></p>
@@ -530,12 +530,12 @@ Geodetic CRS:  +proj=longlat +ellps=WGS84 +datum=WGS84
 </div>
 </div>
 </div>
-<p>Let’s change that to a viridis color scale. The function <code>scale_fill_viridis_c()</code> adds a fancier color-blind viridis palette in a continuous scale. <a href="#fig-viridis">Figure&nbsp;<span>3.7</span></a> shows this color scale option.</p>
+<p>Let’s change that to a viridis color scale. The function <code><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c()</a></code> adds a fancier color-blind viridis palette in a continuous scale. <a href="#fig-viridis">Figure&nbsp;<span>3.7</span></a> shows this color scale option.</p>
 <div class="cell">
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">BIR79</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_fill_viridis_c</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">BIR79</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-viridis" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="maps2_files/figure-html/fig-viridis-1.png" class="img-fluid figure-img" width="672"></p>
@@ -544,13 +544,13 @@ Geodetic CRS:  +proj=longlat +ellps=WGS84 +datum=WGS84
 </div>
 </div>
 <p>We can also add other geoms, like points or labels to this map. Let’s try to label the counties.</p>
-<p>The <code>nc</code> dataset has a variable called <em>NAME</em> for the county names. <a href="#fig-wNames">Figure&nbsp;<span>3.8</span></a> shows the figure when we add the county names using the function <code>geom_sf_text()</code>.</p>
+<p>The <code>nc</code> dataset has a variable called <em>NAME</em> for the county names. <a href="#fig-wNames">Figure&nbsp;<span>3.8</span></a> shows the figure when we add the county names using the function <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf_text()</a></code>.</p>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">BIR79</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_sf_text</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>label <span class="op">=</span> <span class="va">NAME</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">1.5</span>, color <span class="op">=</span> <span class="st">'white'</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_fill_viridis_c</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">nc</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">BIR79</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">NAME</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">1.5</span>, color <span class="op">=</span> <span class="st">'white'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in st_point_on_surface.sfc(sf::st_zm(x)): st_point_on_surface may not
 give correct results for longitude/latitude data</code></pre>
@@ -580,15 +580,15 @@ give correct results for longitude/latitude data</code></pre>
 </div>
 </div>
 </div>
-<p>It is really hard to see the details here. Let’s learn one last trick to zoom in on a <code>ggplot</code> to adjust the axes. The <code>scale_x_continuous()</code> and <code>scale_y_continuous()</code> functions allow us to set different axis limits. <a href="#fig-zoomyDiesel">Figure&nbsp;<span>3.10</span></a> shows the</p>
+<p>It is really hard to see the details here. Let’s learn one last trick to zoom in on a <code>ggplot</code> to adjust the axes. The <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous()</a></code> functions allow us to set different axis limits. <a href="#fig-zoomyDiesel">Figure&nbsp;<span>3.10</span></a> shows the</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu">geom_sf</span><span class="op">(</span>data <span class="op">=</span> <span class="va">SoCalEJ</span>, <span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">DieselPM_P</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">geom_point</span><span class="op">(</span>data <span class="op">=</span> <span class="va">locations</span>,  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">lng</span>, y <span class="op">=</span> <span class="va">lat</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">theme_bw</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_fill_viridis_c</span><span class="op">(</span>option <span class="op">=</span> <span class="st">'A'</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_x_continuous</span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">118</span>, <span class="op">-</span><span class="fl">117</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">scale_y_continuous</span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">33.7</span>, <span class="fl">34.2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">SoCalEJ</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">DieselPM_P</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">locations</span>,  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lng</span>, y <span class="op">=</span> <span class="va">lat</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">'orange'</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span>option <span class="op">=</span> <span class="st">'A'</span>, direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_x_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">118</span>, <span class="op">-</span><span class="fl">117</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html">scale_y_continuous</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">33.7</span>, <span class="fl">34.2</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-zoomyDiesel" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure"><p><img src="maps2_files/figure-html/fig-zoomyDiesel-1.png" class="img-fluid figure-img" width="672"></p>
