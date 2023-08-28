@@ -12,7 +12,7 @@ The Tidyverse framework for visualization is shown in @fig-TidyverseFramework
 
 ## Overview
 
-0. **Step 0** - [Install R and RStudio](http://radicalresearch.llc/EDVcourse/tools.html) - This was last week's assignment.
+0. **Step 0** - [Install R and RStudio](http://radicalresearch.llc/EA078_Fall2023/tools.html) 
 1. **Step 1 - Open RStudio **  
   A. Put in a header comment - who, when, what, where  
   B. Install key packages  
