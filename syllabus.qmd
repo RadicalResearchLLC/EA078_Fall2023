@@ -91,9 +91,10 @@ kableExtra::kable(table.score)
 
 ## Office Hours
 
--   TBD on [Pitzer Zoom](https://pitzer.zoom.us/j/2600893680) -
+-   
 -   Mondays 9:00 - 9:30 (before class) - in RRC basement
--   Thursday and Friday at (PICK A TIME!) on zoom
+-   Thursday at 9:00 - 10:30 on [Pitzer Zoom](https://pitzer.zoom.us/j/2600893680)
+-   Friday at 1:00 - 2:00 on zoom [Pitzer Zoom](https://pitzer.zoom.us/j/2600893680) 
 
 ## Contact Info
 
