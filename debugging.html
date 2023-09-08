@@ -6,11 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Michael McCarthy, PhD">
-<meta name="dcterms.date" content="2023-09-08">
-<meta name="description" content="<p>This book/website will serve as the course outline and lesson plan for the Fall 2023 Pitzer College course 078 PZ - Environmental Data Visualization.</p>">
 
-<title>Environmental Data Visualization</title>
+<title>Environmental Data Visualization - Appendix D — Appendix D. Debugging Steps</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./intro.html" rel="next">
+<link href="./references.html" rel="next">
+<link href="./resources.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -76,7 +74,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./syllabus.html">Appendices</a></li><li class="breadcrumb-item"><a href="./debugging.html"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Appendix D. Debugging Steps</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -103,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -189,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./debugging.html" class="sidebar-item-text sidebar-link">
+  <a href="./debugging.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Appendix D. Debugging Steps</span></span></a>
   </div>
 </li>
@@ -211,9 +209,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
-  <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">License</a></li>
-  <li><a href="#earth-selfie" id="toc-earth-selfie" class="nav-link" data-scroll-target="#earth-selfie">Earth Selfie</a></li>
+  <li><a href="#is-there-a-typo" id="toc-is-there-a-typo" class="nav-link active" data-scroll-target="#is-there-a-typo"><span class="header-section-number">D.1</span> Is there a typo?</a></li>
+  <li><a href="#is-the-packagelibrary-installed-and-loaded" id="toc-is-the-packagelibrary-installed-and-loaded" class="nav-link" data-scroll-target="#is-the-packagelibrary-installed-and-loaded"><span class="header-section-number">D.2</span> Is the package/library installed and loaded?</a></li>
+  <li><a href="#is-the-data-loaded-in-the-global-environment" id="toc-is-the-data-loaded-in-the-global-environment" class="nav-link" data-scroll-target="#is-the-data-loaded-in-the-global-environment"><span class="header-section-number">D.3</span> Is the data loaded in the global environment?</a></li>
+  <li><a href="#is-the-syntax-correct" id="toc-is-the-syntax-correct" class="nav-link" data-scroll-target="#is-the-syntax-correct"><span class="header-section-number">D.4</span> Is the syntax correct?</a></li>
+  <li><a href="#does-a-simpler-version-work" id="toc-does-a-simpler-version-work" class="nav-link" data-scroll-target="#does-a-simpler-version-work"><span class="header-section-number">D.5</span> Does a simpler version work?</a></li>
   </ul>
 </nav>
     </div>
@@ -222,27 +222,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Environmental Data Visualization</h1>
-<p class="subtitle lead">A course on the theory and practice of communication through data visualization</p>
+<h1 class="title"><span id="sec-appendix-debugging" class="quarto-section-identifier">Appendix D — Appendix D. Debugging Steps</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Michael McCarthy, PhD </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">September 8, 2023</p>
-    </div>
-  </div>
   
     
   </div>
@@ -250,34 +237,72 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="preface" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="preface">Preface</h2>
-<p>This is the course website for <strong>‘EA 078 PZ - Environmental Data Visualization’</strong>. In this course, you will learn to import, manipulate, and visualize data using R, with hands-on examples. You will also learn the theory and ethics of environmental data visualization. Throughout the course, you will have the opportunity to practice and apply the skills and judgment of data visualization to provide effective illustrations of real-world data in order to persuade, inform, and communicate.</p>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-body-container">
-<p>This book is created using the <a href="https://quarto.org">Quarto</a> publishing system in order to provide an example of its use in environmental data visualization and as a course resource tool for display of coding examples and visualization.</p>
+<div class="callout-title-container flex-fill">
+Tip
 </div>
 </div>
+<div class="callout-body-container callout-body">
+<p>This provides my top debugging tips for beginners. I’ll add to it as we encounter common bugs in class.</p>
 </div>
+</div>
+<section id="is-there-a-typo" class="level2" data-number="D.1">
+<h2 data-number="D.1" class="anchored" data-anchor-id="is-there-a-typo"><span class="header-section-number">D.1</span> Is there a typo?</h2>
+<p>Running any line of code or code block will fail if there is a typo.<br>
+Check for:</p>
+<ul>
+<li>typos or misspelling of variables, functions,</li>
+<li>capitalization</li>
+<li>missing punctuation (parenthesis, comma, pipe, +)</li>
+</ul>
 </section>
-<section id="license" class="level2">
-<h2 class="anchored" data-anchor-id="license">License</h2>
-<p>This website is <strong>free to use</strong>, and is licensed under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0</a> License.</p>
-<p><img src="https://licensebuttons.net/l/by-sa/4.0/88x31.png" class="img-fluid" alt="cc-by-sa-image"> <img src="https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg" class="img-fluid" alt="cc-by-sa-shield"></p>
-</section>
-<section id="earth-selfie" class="level2">
-<h2 class="anchored" data-anchor-id="earth-selfie">Earth Selfie</h2>
-<p><a href="#fig-PaleBlueDot">Figure&nbsp;<span>1</span></a> is the iconic <a href="https://solarsystem.nasa.gov/resources/536/voyager-1s-pale-blue-dot/">Pale Blue Dot</a> image taken by the Voyager 1 space probe in 1990 from beyond Neptune. The Earth in this image is only a single pixel in size.</p>
-<div id="fig-PaleBlueDot" class="quarto-figure quarto-figure-center anchored">
+<section id="is-the-packagelibrary-installed-and-loaded" class="level2" data-number="D.2">
+<h2 data-number="D.2" class="anchored" data-anchor-id="is-the-packagelibrary-installed-and-loaded"><span class="header-section-number">D.2</span> Is the package/library installed and loaded?</h2>
+<p>If you are calling a function, the library needs to be installed and loaded (or called explicitly).</p>
+<ul>
+<li>Check if the library is loaded in the <code>Files, Plots, Packages...</code> under the <code>Packages</code> tab. A package is loaded if there is a checkmark by it.</li>
+<li>Check if the package is installed. Same procedure as above, but the package won’t even be listed if it isn’t installed.</li>
+<li>Call the package explicitly using the syntax &lt;PACKAGE.NAME&gt;::&lt;FUNCTION.NAME&gt;. An example would be janitor::clean_names().</li>
+</ul>
+<p>If you don’t know where the panels are - see this image and description. We’ll use it a few times.</p>
+<div id="fig-RStudio" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="images/paleBlueDot.jpg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: Carl Sagan’s Pale Blue Dot - an effective visualization?</figcaption>
+<p><img src="images/RStudio.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;D.1: RStudio</figcaption>
 </figure>
 </div>
+<p>Here, there are four separate windows or “Panels”.</p>
+<ul>
+<li>The source panel is top-left and this is basically a text editor where you type R code or regular text. Code here gets colored and looks different if it is doing various R things. More on this later. Code doesn’t get immediately executed here; it is more like a holding place for writing/testing/debugging bigger “scripts” or programs.</li>
+<li>The console/terminal is bottom-left. The terminal is the 1980s window that does commands directly. Type print(‘Hello World’), press enter/return, and you’ve written some code. This console is what R would look like if you ran it without RStudio.</li>
+<li>The top-right is the file manager or <code>Files, Plots, Packages...</code> panel. It shows files in your directory, plots, packages, and help files.</li>
+<li>The bottom-right is the programming environment or <code>Environment</code> panel. It contains things you’ve loaded or coded. Right now it should be empty because you’ve done neither.</li>
+</ul>
+</section>
+<section id="is-the-data-loaded-in-the-global-environment" class="level2" data-number="D.3">
+<h2 data-number="D.3" class="anchored" data-anchor-id="is-the-data-loaded-in-the-global-environment"><span class="header-section-number">D.3</span> Is the data loaded in the global environment?</h2>
+<p>The data needs to be imported and loaded into the global environment before it can be manipulated.</p>
+<ul>
+<li>Check the <code>Environment</code> panel to see if the dataset of interest is loaded and named as expected.</li>
+</ul>
+</section>
+<section id="is-the-syntax-correct" class="level2" data-number="D.4">
+<h2 data-number="D.4" class="anchored" data-anchor-id="is-the-syntax-correct"><span class="header-section-number">D.4</span> Is the syntax correct?</h2>
+<p>The syntax for the code needs to be correct, and needs to follow the idiomatic rules of R.</p>
+<ul>
+<li>Should it be a pipe <code>|&gt;</code> or a <code>+</code>?</li>
+<li>Does the function include all required arguments?</li>
+<li>Did I pass in the data?</li>
+</ul>
+</section>
+<section id="does-a-simpler-version-work" class="level2" data-number="D.5">
+<h2 data-number="D.5" class="anchored" data-anchor-id="does-a-simpler-version-work"><span class="header-section-number">D.5</span> Does a simpler version work?</h2>
+<p>When coding in class, we’ll often start simple, then add complexity for our visualization code. The reason for that is to make sure the very basic things are all there and working, and also because it makes debugging much simpler.</p>
+<p>If a long piece of code breaks, try to see if a <code>minimum reproducible example</code> does work. This is standard for trouble-shooting to make sure none of the previous four things are the problem. Try to make it a single line of code with the most basic functionality and see if that works. Then add one line at a time to see where things break.</p>
 
 
 </section>
@@ -518,10 +543,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./resources.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Resources</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./intro.html" class="pagination-link">
-        <span class="nav-page-text">Introductions</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
