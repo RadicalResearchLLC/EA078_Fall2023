@@ -1,4 +1,4 @@
-# Appendix D. Debugging Steps {#sec-appendix-debugging}
+# Debugging Steps {#sec-appendix-debugging}
 
 ::: callout-tip
 This provides my top debugging tips for beginners. I'll add to it as we encounter common bugs in class.
