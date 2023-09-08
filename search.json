@@ -303,35 +303,35 @@
   {
     "objectID": "debugging.html#is-there-a-typo",
     "href": "debugging.html#is-there-a-typo",
-    "title": "Appendix D — Appendix D. Debugging Steps",
+    "title": "Appendix D — Debugging Steps",
     "section": "D.1 Is there a typo?",
     "text": "D.1 Is there a typo?\nRunning any line of code or code block will fail if there is a typo.\nCheck for:\n\ntypos or misspelling of variables, functions,\ncapitalization\nmissing punctuation (parenthesis, comma, pipe, +)"
   },
   {
     "objectID": "debugging.html#is-the-packagelibrary-installed-and-loaded",
     "href": "debugging.html#is-the-packagelibrary-installed-and-loaded",
-    "title": "Appendix D — Appendix D. Debugging Steps",
+    "title": "Appendix D — Debugging Steps",
     "section": "D.2 Is the package/library installed and loaded?",
     "text": "D.2 Is the package/library installed and loaded?\nIf you are calling a function, the library needs to be installed and loaded (or called explicitly).\n\nCheck if the library is loaded in the Files, Plots, Packages... under the Packages tab. A package is loaded if there is a checkmark by it.\nCheck if the package is installed. Same procedure as above, but the package won’t even be listed if it isn’t installed.\nCall the package explicitly using the syntax &lt;PACKAGE.NAME&gt;::&lt;FUNCTION.NAME&gt;. An example would be janitor::clean_names().\n\nIf you don’t know where the panels are - see this image and description. We’ll use it a few times.\n\n\n\nFigure D.1: RStudio\n\n\nHere, there are four separate windows or “Panels”.\n\nThe source panel is top-left and this is basically a text editor where you type R code or regular text. Code here gets colored and looks different if it is doing various R things. More on this later. Code doesn’t get immediately executed here; it is more like a holding place for writing/testing/debugging bigger “scripts” or programs.\nThe console/terminal is bottom-left. The terminal is the 1980s window that does commands directly. Type print(‘Hello World’), press enter/return, and you’ve written some code. This console is what R would look like if you ran it without RStudio.\nThe top-right is the file manager or Files, Plots, Packages... panel. It shows files in your directory, plots, packages, and help files.\nThe bottom-right is the programming environment or Environment panel. It contains things you’ve loaded or coded. Right now it should be empty because you’ve done neither."
   },
   {
     "objectID": "debugging.html#is-the-data-loaded-in-the-global-environment",
     "href": "debugging.html#is-the-data-loaded-in-the-global-environment",
-    "title": "Appendix D — Appendix D. Debugging Steps",
+    "title": "Appendix D — Debugging Steps",
     "section": "D.3 Is the data loaded in the global environment?",
     "text": "D.3 Is the data loaded in the global environment?\nThe data needs to be imported and loaded into the global environment before it can be manipulated.\n\nCheck the Environment panel to see if the dataset of interest is loaded and named as expected."
   },
   {
     "objectID": "debugging.html#is-the-syntax-correct",
     "href": "debugging.html#is-the-syntax-correct",
-    "title": "Appendix D — Appendix D. Debugging Steps",
+    "title": "Appendix D — Debugging Steps",
     "section": "D.4 Is the syntax correct?",
     "text": "D.4 Is the syntax correct?\nThe syntax for the code needs to be correct, and needs to follow the idiomatic rules of R.\n\nShould it be a pipe |&gt; or a +?\nDoes the function include all required arguments?\nDid I pass in the data?"
   },
   {
     "objectID": "debugging.html#does-a-simpler-version-work",
     "href": "debugging.html#does-a-simpler-version-work",
-    "title": "Appendix D — Appendix D. Debugging Steps",
+    "title": "Appendix D — Debugging Steps",
     "section": "D.5 Does a simpler version work?",
     "text": "D.5 Does a simpler version work?\nWhen coding in class, we’ll often start simple, then add complexity for our visualization code. The reason for that is to make sure the very basic things are all there and working, and also because it makes debugging much simpler.\nIf a long piece of code breaks, try to see if a minimum reproducible example does work. This is standard for trouble-shooting to make sure none of the previous four things are the problem. Try to make it a single line of code with the most basic functionality and see if that works. Then add one line at a time to see where things break."
   },
