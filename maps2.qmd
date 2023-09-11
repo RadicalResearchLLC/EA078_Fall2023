@@ -199,7 +199,7 @@ There is a lot going on in that function. I made the text white _color = 'white'
 
 #### Exercise - Improve the SoCalEJ Visualization
 
-1. Add a different `theme` from one of the [theme options](https://ggplot2-book.org/polishing.html)
+1. Add a different `theme` from one of the [theme options](https://ggplot2-book.org/themes)
 2. Show a variable (categorical, continuous, or quantile) using a fill option.
 3. Add two or more SoCal locations to the map using `geom_point` and your locations table. If that is easy, try increasing the salience of the points through size, color, or shape modifications to that layer.  
 

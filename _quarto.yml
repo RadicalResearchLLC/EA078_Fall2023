@@ -50,7 +50,7 @@ book:
     - syllabus.qmd  
     - tools.qmd
     - resources.qmd
-    - debugging.qmd
+    - debugging.qmd  
     - references.qmd
     
 bibliography: references.bib
