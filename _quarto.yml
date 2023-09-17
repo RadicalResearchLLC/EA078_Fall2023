@@ -18,15 +18,13 @@ book:
       - maps2.qmd
       - chartJunk.qmd
       - assignment1.qmd
-  #  - part: EJ.qmd
-  #    chapters:
-  #    - EJtheory.qmd
-  #    - context.qmd
-  #    - EJtools.qmd
-  ##    - aviation.qmd
-  #    - EJdata.qmd
-  #    - debt.qmd
-  #    - assignment2.qmd
+    - part: EJ.qmd
+      chapters:
+      - EJtheory.qmd
+      - EJtools.qmd
+      - EJdata.qmd
+      - assignment2.qmd
+       # - debt.qmd
   #  - part: data.qmd
   #    chapters:
   #    - import2.qmd
