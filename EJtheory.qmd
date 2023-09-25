@@ -33,11 +33,12 @@ I did want to do an overview of these topics such that we can compare them to th
 
 ## Environmental Justice Tools
 
-We are going to be talking about three EJ tools in this course.
+We are going to be talking about four EJ tools in this course.
 
 -   [CalEnviroScreen4.0](https://oehha.ca.gov/calenviroscreen/report/calenviroscreen-40)
 -   [EJScreen](https://www.epa.gov/ejscreen)
 -   [EJI](https://atsdr.cdc.gov/placeandhealth/eji/index.html)
+-   [Climate and Economic Justice Tool](https://screeningtool.geoplatform.gov/en/)
 
 For today, I want to focus on the intersection of the **concepts** of environmental justice listed above and the **metrics** of environmental justice in these tools.
 
@@ -73,7 +74,7 @@ The individual environmental indicators are combined with a demographic index va
 
 ![EJI for SoCal](images/EJI.png){#fig-EJI}
 
-@fig-EJI shows the Environmental Justice Index quartiles for SoCal. The Centers for Disease Control [CDC](https://www.cdc.gov/) Agency for Toxic Substances and Disease Registry [ATSDR](https://www.atsdr.cdc.gov/) is a public health agency that has created its own indicator, which is documented in a 94 page [technical report](https://www.atsdr.cdc.gov/placeandhealth/eji/docs/EJI-2022-Documentation.pdf)
+@fig-EJI shows the Environmental Justice Index quartiles for SoCal. The Centers for Disease Control [CDC](https://www.cdc.gov/) Agency for Toxic Substances and Disease Registry [ATSDR](https://www.atsdr.cdc.gov/) is a public health agency that has created its own indicator, which is documented in a 94 page [technical report](https://atsdr.cdc.gov/placeandhealth/eji/docs/EJI-2022-Documentation-508.pdf)
 
 The EJI uses [three broad categories](https://www.atsdr.cdc.gov/placeandhealth/eji/docs/EJI-2022-Indicators-508.pdf) of indicators.
 
@@ -82,6 +83,16 @@ The EJI uses [three broad categories](https://www.atsdr.cdc.gov/placeandhealth/e
 3.  Health Vulnerablity - This category includes five pre-existing chronic diseases, including asthma, cancer, blood pressure, diabetes, and mental health.
 
 The three indicator categories are each weighted equally and averaged to generate a final single indicator value for the EJI. Each individual category is also available via mouseover or click on specific map locations.
+
+### Climate and Economic Justice Screening Tool
+
+The recently released CEJST is from the President's Council on Environmental Quality. The tool is intended to help identify disadvantaged communities that will benefit from programs included in the Justice40 initiative, which seeks to deliver 40% of overall benefits in climate, clean energy, and related areas to disadvantaged communities.  
+
+CEJST uses a two-fold methodology similar to that followed in EJScreen.  
+
+1. Burden threshold (climate change, energy, legacy pollution, health, housing, transportation, water, and workforce development)
+2. Economic threshold (below 35th percentile income usually, low educational attainment for workforce development)
+
 
 ### Discussion 2
 

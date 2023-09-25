@@ -53,13 +53,13 @@ I have been doing work with the [Redford Conservancy](https://www.pitzer.edu/red
 
 The primary tool is called [WarehouseCITY](https://radicalresearch.shinyapps.io/WarehouseCITY/).  WarehouseCITY is intended to provide a means for the public to easily access the impact of existing warehouses on their community. The code repository is located on [github](https://github.com/RadicalResearchLLC/WarehouseMap).  
 
-A secondary tool provides a [visualization](https://radicalresearch.shinyapps.io/MarchJPA/) of the existing and planned warehouse growth along the 215/60 freeways around the March Air Reserve Base in Riverside County (my backyard)
+A secondary tool provides a [visualization](https://radicalresearch.shinyapps.io/MarchJPA/) of the existing and planned warehouse growth along the 215/60 freeways around the March Air Reserve Base in Riverside County (my backyard). That project's draft Environmental Impact Report (EIR) is [here](https://marchjpa.com/mjpa-meridian-west-campus/)
 
 ### Is Visualization Effective in Social Praxis?
 
-Yes and No.
+Sometimes.
 
-Yes, it works to get median attention and makes very convincing storytelling to those who already agree with you. It can change or engage people who are already on your side.  It can surprise and influence people who are in the middle.  
+Yes, it works to get media attention and makes very convincing storytelling to those who already agree with you. It can change or engage people who are already on your side.  It can surprise and influence people who are in the middle.  
 
 No, it does not seem to be very effective at engaging decision-makers directly. My experience has been that they are more interested in people and stories. In private meetings, they ooh and aah at the visualization but are more interested in strategy and coalition building - on the ground organization and political influence.  
 
@@ -87,9 +87,9 @@ Also note that I made this dataset smaller by using the `filter()` function to o
 #| echo: true
 #| warning: false
 
-WH.url <- 'https://raw.githubusercontent.com/RadicalResearchLLC/WarehouseMap/main/WarehouseCITY/geoJSON/finalParcels.geojson'
-warehouses <- st_read(WH.url) %>% 
-  filter(county == 'Riverside') %>% 
+WH.url <- 'https://raw.githubusercontent.com/RadicalResearchLLC/WarehouseMap/main/WarehouseCITY/geoJSON/comboFinal.geojson'
+warehouses <- st_read(WH.url) |>  
+  filter(county == 'Riverside') |>  
   st_transform("+proj=longlat +ellps=WGS84 +datum=WGS84")
 
 ```
@@ -150,10 +150,13 @@ Let's add two more helpful things to orient viewers at a glance.
 #| fig-cap: Leaflet warehouse map near March JPA
 #| echo: true
 
+palWHtype <- colorFactor(palette = c('darkorange', 'red'),
+                         domain = warehouses$category)
+
 leaflet() %>% 
   addTiles() %>% 
   addPolygons(data = warehouses,
-              color = 'darkred',
+              color = ~palWHtype(category),
               weight = 1) %>% 
   setView(lng = -117.24, lat = 33.875, zoom = 12) %>% 
   addProviderTiles(provider = providers$Esri.WorldImagery) %>% 
