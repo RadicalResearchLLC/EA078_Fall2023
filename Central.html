@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Environmental Data Visualization - 10&nbsp; EJ - Warehouse Mapping Case Study - Warehouse CENTRAL</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./assignment2.html" rel="next">
+<link href="./EJdata.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script><script src="site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script><script src="site_libs/jquery-1.12.4/jquery.min.js"></script><link href="site_libs/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+<script src="site_libs/leaflet-1.3.1/leaflet.js"></script><link href="site_libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
+<script src="site_libs/proj4-2.6.2/proj4.min.js"></script><script src="site_libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="site_libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
+<script src="site_libs/leaflet-binding-2.1.2/leaflet.js"></script><script src="site_libs/leaflet-providers-1.13.0/leaflet-providers_1.13.0.js"></script><script src="site_libs/leaflet-providers-plugin-2.1.2/leaflet-providers-plugin.js"></script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./EJ.html">Unit 2: Environmental Justice</a></li><li class="breadcrumb-item"><a href="./Central.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">EJ - Warehouse Mapping Case Study - Warehouse CENTRAL</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Environmental Data Visualization</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introductions</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./weather.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unit 1: Weather and Climate</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./information.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Fundamentals of Data Visualization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./coding1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Coding in R - Basics</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./maps1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Introduction to Spatial Visualization - 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./maps2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Introduction to Spatial Visualization 2</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chartJunk.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Chartjunk, Data-Ink Ratios, and Visualization Theory</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./assignment1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Assignments for Unit 1</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./EJ.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unit 2: Environmental Justice</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EJtheory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">EJ - Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EJtools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">EJ - Praxis and Visualization</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./EJdata.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">EJ - Exploratory Analysis Case Study</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Central.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">EJ - Warehouse Mapping Case Study - Warehouse CENTRAL</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./assignment2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Assignments for Unit 2 - EJ</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unit 3: Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./import2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Importing Data - Part 1</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./export.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Exporting Visualizations and Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./munging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Data Science 101</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./import3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Importing Data - Part 2</span></span></a>
+  </div>
+</li>
+      </ul>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Course Syllabus</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./tools.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">R and RStudio Installation and Overview</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Resources</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./debugging.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Debugging Steps</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#airport-gateway-project" id="toc-airport-gateway-project" class="nav-link active" data-scroll-target="#airport-gateway-project"><span class="header-section-number">10.1</span> Airport Gateway Project</a></li>
+  <li><a href="#cumulative-impacts" id="toc-cumulative-impacts" class="nav-link" data-scroll-target="#cumulative-impacts"><span class="header-section-number">10.2</span> Cumulative Impacts</a></li>
+  <li>
+<a href="#visualization---drawing-a-polygon" id="toc-visualization---drawing-a-polygon" class="nav-link" data-scroll-target="#visualization---drawing-a-polygon"><span class="header-section-number">10.3</span> Visualization - Drawing a Polygon</a>
+  <ul>
+<li><a href="#load-libraries" id="toc-load-libraries" class="nav-link" data-scroll-target="#load-libraries"><span class="header-section-number">10.3.1</span> Load libraries</a></li>
+  <li><a href="#manually-identify-the-polygon-vertices." id="toc-manually-identify-the-polygon-vertices." class="nav-link" data-scroll-target="#manually-identify-the-polygon-vertices."><span class="header-section-number">10.3.2</span> Manually Identify the Polygon Vertices.</a></li>
+  <li><a href="#in-class-exercise" id="toc-in-class-exercise" class="nav-link" data-scroll-target="#in-class-exercise"><span class="header-section-number">10.3.3</span> In-Class Exercise</a></li>
+  <li><a href="#planned-warehouses-map" id="toc-planned-warehouses-map" class="nav-link" data-scroll-target="#planned-warehouses-map"><span class="header-section-number">10.3.4</span> Planned Warehouses Map</a></li>
+  </ul>
+</li>
+  </ul></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title"><span id="sec-Central" class="quarto-section-identifier"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">EJ - Warehouse Mapping Case Study - Warehouse CENTRAL</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Today we will focus on the practice of creating polygons for use in a warehouse mapping visualization.</p>
+</div>
+</div>
+</div>
+<p>The Tracy Earth Project and Catholic Charities - Stockton Diocese Environmental Justice Program contacted us to help them build a warehouse mapping tool. This lesson will involve some praxis for this class to help build that tool.</p>
+<p>First, we’ll use a praxis example from last semester to show you how to draw a polygon to overlay on a map (leaflet or ggplot). Then, you’ll each be drawing some polygons for the San Joaquin County area.</p>
+<section id="airport-gateway-project" class="level2" data-number="10.1"><h2 data-number="10.1" class="anchored" data-anchor-id="airport-gateway-project">
+<span class="header-section-number">10.1</span> Airport Gateway Project</h2>
+<p>The <a href="https://files.ceqanet.opr.ca.gov/279422-2/attachment/Glv_nl-eBCUMNMvGYwUM9Sedv2a6JSPGjmXPvQ17xmx9F43acaCvh13SdvheTPHBa_Av2TGhy_Q4OA_60">Airport Gateway Specific Plan</a> is a Program Environmental Impact Report (EIR) under CEQA (California Environmental Quality Act). <a href="https://earthjustice.org/">Earthjustice</a> asked for the Redford Conservancy and Radical Research LLC to write technical responses to the EIR back in March of this year.</p>
+<p>The Airport Gateway Project is a development on about 678 acres of land just north of the San Bernardino Airport (i.e., the old Norton Air Force Base) between 3rd Street and 6th street between Tippecanoe Avenue and the I-210 freeway. <a href="#fig-siteMap">Figure&nbsp;<span>10.1</span></a> shows the basic layout of the plan.</p>
+<div id="fig-siteMap" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/siteMap.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">Figure&nbsp;10.1: Airport Gateway Land Use Plan</figcaption></figure>
+</div>
+</section><section id="cumulative-impacts" class="level2" data-number="10.2"><h2 data-number="10.2" class="anchored" data-anchor-id="cumulative-impacts">
+<span class="header-section-number">10.2</span> Cumulative Impacts</h2>
+<p>Today, I am going to ask you all to help with a cumulative impacts analysis (for the project. Under <a href="https://ceqaportal.org/tp/AEP%20CEQA%20Portal_Cumulative%20Impacts.pdf">CEQA Section 15355</a>, cumulative impacts are defined as ‘two or more individual effects, when considered together, are considerable or which compound or increase other environmental impacts…The cumulative impact from several projects is the change in the environment which results from the incremental impact of the project when added to other closely related past, present, and reasonably foreseeable future projects.’</p>
+<p>A cumulative impacts analysis identifies the past, present, and probable future projects that should be included in the EIR.</p>
+<p>The <a href="https://radicalresearch.shinyapps.io/WarehouseCITY/">Warehouse CITY tool</a> is designed to do exactly this. In Spring 2023, my class and helped to add dozens of planned warehouses to the existing warehouses map. This work helped us to add a layer of ’planned and approved warehouses to the tool allowing users to see what warehouses are likely to be built in the near future.</p>
+<p>Within 3.1 miles (5 km) of the Airport Gateway project, the tool indicates that there are already 1740+ acres of warehouses. Using the default warehouse floor-area-ratio assumption of 0.65, and a truck trip generation rate of 0.67 trucks per 1000 square feet of warehouses, this results in an estimate of over 30,000 truck trips daily from this region. <span class="quarto-unresolved-ref">?fig-AGarea</span> shows the output. You can alter the circle size or move the starting point and see how sensitive the estimate is to the default assumptions. Also, you can zoom in with aerial imagery and see that a few warehouses aren’t identified in this analysis.</p>
+</section><section id="visualization---drawing-a-polygon" class="level2" data-number="10.3"><h2 data-number="10.3" class="anchored" data-anchor-id="visualization---drawing-a-polygon">
+<span class="header-section-number">10.3</span> Visualization - Drawing a Polygon</h2>
+<p>Note, this is a highly manual approach. There are almost certainly machine-learning ways to do this systematically, but I am not an image processing expert. If any of you have desire to do more, I can point you to some resources for this.</p>
+<section id="load-libraries" class="level3" data-number="10.3.1"><h3 data-number="10.3.1" class="anchored" data-anchor-id="load-libraries">
+<span class="header-section-number">10.3.1</span> Load libraries</h3>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/">leaflet</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="manually-identify-the-polygon-vertices." class="level3" data-number="10.3.2"><h3 data-number="10.3.2" class="anchored" data-anchor-id="manually-identify-the-polygon-vertices.">
+<span class="header-section-number">10.3.2</span> Manually Identify the Polygon Vertices.</h3>
+<p>Open <a href="https://www.google.com/maps">Google Maps</a> or an equivalent mapping tool with satellite imagery and an ability to click on a location and retrieve a decimal degree location.</p>
+<p>Find a vertex on the map - input longitude and latitude into a list in the form <code>c(lng, lat)</code>.</p>
+<p>Do that for all the vertex points and bind them together as a list of lists as shown in the code below.</p>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">AirportGateway1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span></span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.26095</span>, <span class="fl">34.11023</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.26095</span>, <span class="fl">34.10611</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.25946</span>, <span class="fl">34.10484</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.24921</span>, <span class="fl">34.10484</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.24455</span>, <span class="fl">34.1069</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.22594</span>, <span class="fl">34.1069</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.21669</span>, <span class="fl">34.1069</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.21262</span>, <span class="fl">34.1069</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.21248</span>, <span class="fl">34.10476</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.20905</span>, <span class="fl">34.10528</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.20532</span>, <span class="fl">34.10613</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.1997</span>, <span class="fl">34.10617</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.1998</span>, <span class="fl">34.1116</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.20086</span>, <span class="fl">34.11073</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.2117</span>, <span class="fl">34.11074</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.21757</span>, <span class="fl">34.109</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.21757</span>, <span class="fl">34.11032</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.24932</span>, <span class="fl">34.11012</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.24932</span>, <span class="fl">34.10847</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.25412</span>, <span class="fl">34.10847</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.25412</span>, <span class="fl">34.11012</span><span class="op">)</span>,</span>
+<span>                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">117.26095</span>, <span class="fl">34.11023</span><span class="op">)</span></span>
+<span>                    <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Look at the AirportGateway table - it looks like a list of point coordinates.</p>
+<p>We need one more bit of code to convert that into a polygon. It is a bit complicated.</p>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">AirportGatewaySP</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sf.html">st_sf</a></span><span class="op">(</span></span>
+<span>                      name <span class="op">=</span> <span class="st">'Airport Gateway Specific Plan Area'</span>, </span>
+<span>                      geom <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc</a></span><span class="op">(</span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st.html">st_polygon</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">AirportGateway1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>                      crs <span class="op">=</span> <span class="fl">4326</span></span>
+<span>                      <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>name</code> is our label for the polygon, so that’s easy. The <code>crs</code> is the coordinate reference system, in this case WGS84 = 4326 for easy display in <code>leaflet</code>.</p>
+<p>The <code>geom</code> is the geometry. Three functions are applied - <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> which converts the AirportGateway1 table to a list, <code><a href="https://r-spatial.github.io/sf/reference/st.html">st_polygon()</a></code> which returns a polygon from a list of coordinates, and <code><a href="https://r-spatial.github.io/sf/reference/sfc.html">st_sfc()</a></code> which verifies the contents and sets its class.</p>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Polygons always have to start and end with the same vertex to be a closed loop.</p>
+</div>
+</div>
+</div>
+<p>Now we should display it to make sure it looks correct. <a href="#fig-AirportGatewayLeaflet">Figure&nbsp;<span>10.2</span></a> shows the attempt.</p>
+<div class="cell">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leaflet</a></span><span class="op">(</span><span class="op">)</span>  <span class="op">|&gt;</span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addPolygons</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">AirportGatewaySP</span>,</span>
+<span>              color <span class="op">=</span> <span class="st">'darkred'</span>,</span>
+<span>              fillOpacity <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>              weight <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-AirportGatewayLeaflet" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-a29db42a279eb1a2d7f5" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-a29db42a279eb1a2d7f5">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addPolygons","args":[[[[{"lng":[-117.26095,-117.26095,-117.25946,-117.24921,-117.24455,-117.22594,-117.21669,-117.21262,-117.21248,-117.20905,-117.20532,-117.1997,-117.1998,-117.20086,-117.2117,-117.21757,-117.21757,-117.24932,-117.24932,-117.25412,-117.25412,-117.26095],"lat":[34.11023,34.10611,34.10484,34.10484,34.1069,34.1069,34.1069,34.1069,34.10476,34.10528,34.10613,34.10617,34.1116,34.11073,34.11074,34.109,34.11032,34.11012,34.10847,34.10847,34.11012,34.11023]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":"darkred","weight":1,"opacity":0.5,"fill":true,"fillColor":"darkred","fillOpacity":0.6,"smoothFactor":1,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[34.10476,34.1116],"lng":[-117.26095,-117.1997]}},"evals":[],"jsHooks":[]}</script><figcaption class="figure-caption">Figure&nbsp;10.2: Airport Gateway polygon check</figcaption></figure>
+</div>
+</div>
+<p>That looks pretty close.</p>
+<p>Now let’s add the warehouse layer from last week to see it in context of the existing warehouses.</p>
+<p>First import the warehouse dataset. Unlike last week, we’ll include only <strong>San Bernardino County</strong> instead of Riverside County. If you still have your data from last week loaded, this will replace that dataset with this one because I used the warehouses data frame name in both cases. If you want to avoid that, call this dataset set <strong>warehouses2</strong> or something to make it unique.</p>
+<div class="cell">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">WH.url</span> <span class="op">&lt;-</span> <span class="st">'https://raw.githubusercontent.com/RadicalResearchLLC/WarehouseMap/main/WarehouseCITY/geoJSON/finalParcels.geojson'</span></span>
+<span><span class="va">warehouses</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="va">WH.url</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">county</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'San Bernardino'</span>, <span class="st">'Riverside'</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="st">"+proj=longlat +ellps=WGS84 +datum=WGS84"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Reading layer `finalParcels' from data source 
+  `https://raw.githubusercontent.com/RadicalResearchLLC/WarehouseMap/main/WarehouseCITY/geoJSON/finalParcels.geojson' 
+  using driver `GeoJSON'
+Simple feature collection with 9021 features and 12 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -118.8037 ymin: 33.43325 xmax: -114.4085 ymax: 35.55527
+Geodetic CRS:  WGS 84</code></pre>
+</div>
+</div>
+<p>Now let’s add the existing warehouses to the map. Let’s also use <code><a href="https://rdrr.io/pkg/leaflet/man/map-methods.html">setView()</a></code> to zoom in on our area of interest cause San Bernardino County is really big.</p>
+<p><span class="quarto-unresolved-ref">?fig-moreWH</span> shows the new project in a bit more context.</p>
+<div class="cell">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leaflet</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addPolygons</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">AirportGatewaySP</span>,</span>
+<span>              color <span class="op">=</span> <span class="st">'darkred'</span>,</span>
+<span>              fillOpacity <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>              weight <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addPolygons</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">warehouses</span>,</span>
+<span>              color <span class="op">=</span> <span class="st">'brown'</span>,</span>
+<span>              weight <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-methods.html">setView</a></span><span class="op">(</span>lng <span class="op">=</span> <span class="op">-</span><span class="fl">117.20905</span>, lat <span class="op">=</span> <span class="fl">34.10528</span>, zoom <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Yikes, that underlying map is a bit too busy. Let’s switch to a different provider tile and zoom out a tiny bit further to the West.</p>
+<p><span class="quarto-unresolved-ref">?fig-finalWH</span></p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leaflet</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/addProviderTiles.html">addProviderTiles</a></span><span class="op">(</span>provider <span class="op">=</span> <span class="va">providers</span><span class="op">$</span><span class="va">CartoDB.Positron</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addPolygons</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">AirportGatewaySP</span>,</span>
+<span>              color <span class="op">=</span> <span class="st">'darkred'</span>,</span>
+<span>              fillOpacity <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>              weight <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addPolygons</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">warehouses</span>,</span>
+<span>              color <span class="op">=</span> <span class="st">'brown'</span>,</span>
+<span>              weight <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-methods.html">setView</a></span><span class="op">(</span>lng <span class="op">=</span> <span class="op">-</span><span class="fl">117.34</span>, lat <span class="op">=</span> <span class="fl">34.10528</span>, zoom <span class="op">=</span> <span class="fl">11</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section><section id="in-class-exercise" class="level3" data-number="10.3.3"><h3 data-number="10.3.3" class="anchored" data-anchor-id="in-class-exercise">
+<span class="header-section-number">10.3.3</span> In-Class Exercise</h3>
+<p>There’s a <a href="">google spreadsheet</a> that is tracking many of the bigger warehouse projects in the region. I’m hoping to have all of you work together to individually add a few warehouses each to this map, which we then combine to make a single planned warehouses map layer for San Joaquin County.</p>
+<p>Steps for adding a warehouse -</p>
+<ol type="1">
+<li>Look up the EIR or MND on <a href="https://ceqanet.opr.ca.gov/Search?StartRange=2020-01-01&amp;DocumentType=MND+-+Mitigated+Negative+Declaration&amp;County=San+Joaquin&amp;DevelopmentType=Industrial">CEQANET</a> - -advanced search</li>
+</ol>
+<ul>
+<li>Document type = MND or EIR</li>
+<li>County = San Joaquin</li>
+<li>Development Type = Industrial</li>
+</ul>
+<ol start="2" type="1">
+<li>Click on a project (SCH Number or MND) - read the ‘document description’ to see if it sounds like a warehouse or distribution center - ask me if you are not sure.</li>
+<li>Open the environmental document labeled MND, or IS-MND, or EIR, or …</li>
+<li>Find the site map</li>
+<li>Create your list of coordinates within the google spreadsheet <code>WarehouseCoordinates</code> sheet<br>
+</li>
+<li>Add the project details to the <code>PlannedCentralWarehouses</code> sheet.</li>
+<li>I will show you how to import a googlesheet and make it into a polygon table for mapping next.</li>
+</ol></section><section id="planned-warehouses-map" class="level3" data-number="10.3.4"><h3 data-number="10.3.4" class="anchored" data-anchor-id="planned-warehouses-map">
+<span class="header-section-number">10.3.4</span> Planned Warehouses Map</h3>
+<p>This may or may not work on Macs - so you all will be my guinea pigs.</p>
+<p>We’ll use a new package to read a google sheet which requires authentication. The package is <code>googlesheets4</code>. First we install.</p>
+<div class="cell">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'googlesheets4'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then we load the library.</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://googlesheets4.tidyverse.org">googlesheets4</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Check to make sure that worked! Look at packages to make sure googlesheets4 is checked.</p>
+<p>Let’s read in the data now. We’ll use the function <code><a href="https://googlesheets4.tidyverse.org/reference/range_read.html">read_sheet()</a></code>. The <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> function just picks the first three columns. The <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> function removes any rows with no inputs for lng. It is likely your console will ask you to authenticate with your gmail account. You may need to give permission and I’m not sure this will work on Macs as this has failed in a previous version of this package. But it works for me.</p>
+<p>If this works, a CentralValleyPlanned table should be in your environment folder.</p>
+<div class="cell">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">CentralValleyPlanned</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://googlesheets4.tidyverse.org/reference/range_read.html">read_sheet</a></span><span class="op">(</span><span class="st">'https://docs.google.com/spreadsheets/d/1Dw-HLvt5AzTY8or3ZFiDdlXX5Xv1u-ASD9t-153FwNc/edit#gid=0'</span>,</span>
+<span>                                sheet <span class="op">=</span> <span class="st">'WarehouseCoordinates'</span><span class="op">)</span> <span class="op">|&gt;</span>  </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span> <span class="co"># rename(lng = longitude, lat = latitude) %&gt;% </span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">lng</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we can create polygons out of each uniquely named set of coordinates and see if they look ok. This code does that.</p>
+<div class="cell">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">WHPolygons</span> <span class="op">&lt;-</span> <span class="va">CentralValleyPlanned</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html">st_as_sf</a></span><span class="op">(</span>coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'lng'</span>, <span class="st">'lat'</span><span class="op">)</span>, crs <span class="op">=</span> <span class="fl">4326</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">ProjectName</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_combine</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_cast.html">st_cast</a></span><span class="op">(</span><span class="st">"POLYGON"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And now let’s make a map showing existing and planned warehouses. <a href="#fig-BadWH">Figure&nbsp;<span>10.3</span></a> shows the result.</p>
+<div class="cell">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leaflet</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/addProviderTiles.html">addProviderTiles</a></span><span class="op">(</span>provider <span class="op">=</span> <span class="va">providers</span><span class="op">$</span><span class="va">CartoDB.Positron</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addPolygons</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">WHPolygons</span>,</span>
+<span>              color <span class="op">=</span> <span class="st">'black'</span>,</span>
+<span>              fillOpacity <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>              weight <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-BadWH" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-4479bebb2cf82f4be386" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-4479bebb2cf82f4be386">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB.Positron",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addPolygons","args":[[[[{"lng":[-121.3549,-121.34932,-121.34932,-121.35238,-121.35292,-121.35812,-121.3578,-121.35669,-121.3549],"lat":[37.94817,37.94817,37.94488,37.94488,37.94529,37.9453,37.94655,37.94762,37.94817]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":"black","weight":1,"opacity":0.5,"fill":true,"fillColor":"black","fillOpacity":0.6,"smoothFactor":1,"noClip":false},null,null,null,{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[37.94488,37.94817],"lng":[-121.35812,-121.34932]}},"evals":[],"jsHooks":[]}</script><figcaption class="figure-caption">Figure&nbsp;10.3: The current best map of warehouses in the IE in the whole world</figcaption></figure>
+</div>
+</div>
+<p>One last lesson. It would be helpful to be able to identify each planned warehouse by name.</p>
+<p>Let’s try adding a label to the <code>addPolygons</code> function using the <code>label</code> argument. <a href="#fig-NowWithLabels">Figure&nbsp;<span>10.4</span></a> shows the result but the difference is only apparent when you mouse over the polygons.</p>
+<p>Note, this may require <code>htmltools</code> to be installed and/or loaded.</p>
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html">leaflet</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/addProviderTiles.html">addProviderTiles</a></span><span class="op">(</span>provider <span class="op">=</span> <span class="va">providers</span><span class="op">$</span><span class="va">CartoDB.Positron</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html">addPolygons</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">WHPolygons</span>,</span>
+<span>              color <span class="op">=</span> <span class="st">'chartreuse'</span>,</span>
+<span>              fillOpacity <span class="op">=</span> <span class="fl">0.6</span>,</span>
+<span>              weight <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>              label <span class="op">=</span> <span class="op">~</span><span class="va">ProjectName</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="fig-NowWithLabels" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-9f760a957f51226c3b18" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-9f760a957f51226c3b18">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addProviderTiles","args":["CartoDB.Positron",null,null,{"errorTileUrl":"","noWrap":false,"detectRetina":false}]},{"method":"addPolygons","args":[[[[{"lng":[-121.3549,-121.34932,-121.34932,-121.35238,-121.35292,-121.35812,-121.3578,-121.35669,-121.3549],"lat":[37.94817,37.94817,37.94488,37.94488,37.94529,37.9453,37.94655,37.94762,37.94817]}]]],null,null,{"interactive":true,"className":"","stroke":true,"color":"chartreuse","weight":1,"opacity":0.5,"fill":true,"fillColor":"chartreuse","fillOpacity":0.6,"smoothFactor":1,"noClip":false},null,null,"TC NO.CAL. Development Warehousing and Distribution Facility",{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[37.94488,37.94817],"lng":[-121.35812,-121.34932]}},"evals":[],"jsHooks":[]}</script><figcaption class="figure-caption">Figure&nbsp;10.4: The current best map of warehouses in the IE in the whole world</figcaption></figure>
+</div>
+</div>
+
+
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./EJdata.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">EJ - Exploratory Analysis Case Study</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./assignment2.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Assignments for Unit 2 - EJ</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
