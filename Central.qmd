@@ -140,35 +140,13 @@ warehouses <- st_read(WH.url) |>
 
 Now let's add the existing warehouses to the map. Let's also use `setView()` to zoom in on our area of interest cause San Bernardino County is really big.
 
-@fig-moreWH shows the new project in a bit more context.
-
-```{r}
-#| label: fig-moreWH 
-#| fig-cap: Airport Gateway project in context
-#| echo: true
-#| eval: false
-
-leaflet() |> 
-  addTiles() |> 
-  addPolygons(data = AirportGatewaySP,
-              color = 'darkred',
-              fillOpacity = 0.6,
-              weight = 1) |> 
-  addPolygons(data = warehouses,
-              color = 'brown',
-              weight = 1) |> 
-  setView(lng = -117.20905, lat = 34.10528, zoom = 12)
-```
-
-Yikes, that underlying map is a bit too busy. Let's switch to a different provider tile and zoom out a tiny bit further to the West.
-
 @fig-finalWH
 
 ```{r}
 #| label: fig-finalWH 
 #| fig-cap: Airport Gateway project in bigger context with less busy map.
 #| echo: true
-#| eval: false
+#| eval: true
 
 leaflet() |> 
   addTiles() |> 
