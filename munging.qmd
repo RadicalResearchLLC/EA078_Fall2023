@@ -35,6 +35,7 @@ Next, install and load `janitor`.
 #| eval: false
 
 install.packages('janitor')
+
 ```
 
 ```{r}
@@ -43,6 +44,7 @@ install.packages('janitor')
 #| message: false
 
 library(janitor)
+library(knitr)
 
 ```
 
@@ -143,60 +145,7 @@ SoCal_narrow %>%
 
 @sec-EJTheory included an example of using `select()` on the SoCalEJ dataset. The raw dataset is MESSY! 
 
-```{r}
-#| label: import TRI
-#| echo: true
-#| warning: false
-#| message: false
-
-## This is a test import of the first 25 rows of an 18,000 row dataset
-TRI_2021_raw <- read_csv('2021_us.csv', n_max = 25) #%>% 
-head(TRI_2021_raw)
-
-## This dataset is MESSY! Time to munge!
-
-TRI_2021 <- read_csv('2021_us.csv') %>% 
-  # make variable names better
-  janitor::clean_names() %>% 
-  # keep only Ethylene oxide facilities
-  filter(x34_chemical == 'Ethylene oxide') %>% 
-  # keep only the name, city, lat/lng, and emissions total columns
-  select(x4_facility_name, x6_city, x12_latitude, x13_longitude,    x62_on_site_release_total) %>% 
-  rename(facility = x4_facility_name,
-         city = x6_city,
-         lat = x12_latitude,
-         lng = x13_longitude,
-         emissions = x62_on_site_release_total)
-
-head(TRI_2021)
-
-```
-
-@fig-EtO
-
-```{r}
-#| label: fig-EtO
-#| fig-cap: Ethylene oxide facilities reporting to TRI in 2021
-#| echo: true
-#| message: false
-
-library(leaflet)
-library(htmltools)
-
-leaflet() %>% 
-  addTiles() %>% 
-  addProviderTiles(provider = providers$Esri.WorldImagery, 
-                     group = 'Imagery') %>% 
-  addLayersControl(baseGroups = c('Basemap', 'Imagery'), overlayGroups = 'TRI EtO Facilities',
-                   options = layersControlOptions(collapsed = FALSE)) %>% 
-  addCircles(data = TRI_2021, color = 'red', opacity = 0.3) %>% 
-  addCircles(data = TRI_2021, weight = 1, stroke = FALSE,
-             color = 'red',
-             radius = ~emissions * 10, popup = ~facility,
-             opacity = 0.5,
-             group = 'TRI EtO Facilities') 
-
-```
+FIXME
 
 ### [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
 
@@ -214,14 +163,7 @@ Let's use `mutate()` to convert the TRI ethylene oxide emissions from pounds to 
 
 1 pound = 0.453592 kilograms
 
-```{r}
-#| label: add kg emissions
-#| echo: true
-
-TRI_2021 <- TRI_2021 %>% 
-  mutate(emissions_kg = emissions*0.453592)
-head(TRI_2021)
-```
+FIXME
 
 ### [`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html)
 
@@ -229,26 +171,14 @@ head(TRI_2021)
 
 I have not demonstrated `summarize()` yet in this class, which is a major deficiency on my part.  Let's examine it with `TRI_2021`.
 
-```{r}
-#| label: basic summarize
-#| echo: true
-#| warning: false
 
-EtO_summary <- TRI_2021 %>% 
-  summarize(count = n(), sum = sum(emissions), average = mean(emissions),
-            max = max(emissions), min = min(emissions), 
-            stdev = sd(emissions))
-
-library(kableExtra)
-# This is just a fancy table instead of showing the normal output
-kable(EtO_summary)  
-```
 
 A more interesting example includes the `group_by()` function. This function identifies categories to summarize the data by.  The SoCalEJ_narrow dataset has some simple grouping categories that can be used to show this. 
 
 ```{r}
 #| label: group by summarize on SoCal_narrow
 #| echo: true
+
 
 SoCal_basic <- SoCal_narrow %>% 
   group_by(variable) %>% 
@@ -263,6 +193,8 @@ And of course, we can combine our functions to dig even deeper. This example foc
 ```{r}
 #| label: group by summarize complicated
 #| echo: true
+
+
 
 SoCal_complicated <- SoCal_narrow %>% 
   filter(variable %in% c('CIscoreP', 'AsthmaP', 'LowBirWP', 'CardiovasP')) %>% 
