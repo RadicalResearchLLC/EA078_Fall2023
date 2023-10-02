@@ -219,7 +219,9 @@ CentralValleyPlanned <- read_sheet('https://docs.google.com/spreadsheets/d/1Dw-H
                                 sheet = 'WarehouseCoordinates') |>  
   select(1:3) |> 
  # rename(lng = longitude, lat = latitude) %>% 
-  filter(!is.na(lng))
+  filter(!is.na(lng)) |> 
+   filter(!is.na(lat)) |> 
+   filter(ProjectName != 'Administrative Use Permit No. PA-2300022')
 
 ```
 
@@ -266,7 +268,7 @@ Note, this may require `htmltools` to be installed and/or loaded.
 leaflet() |> 
   addProviderTiles(provider = providers$CartoDB.Positron) |> 
   addPolygons(data = WHPolygons,
-              color = 'chartreuse',
+              color = 'darkred',
               fillOpacity = 0.6,
               weight = 1,
               label = ~ProjectName)
