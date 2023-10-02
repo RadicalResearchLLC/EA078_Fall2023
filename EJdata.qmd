@@ -32,7 +32,7 @@ Import the SoCalEJ dataset again, if you don't have it already loaded.
 #| output: false
 
 URL.path <- 'https://raw.githubusercontent.com/RadicalResearchLLC/EDVcourse/main/CalEJ4/CalEJ.geoJSON'
-SoCalEJ <- st_read(URL.path) %>% 
+SoCalEJ <- st_read(URL.path) |>  
   st_transform("+proj=longlat +ellps=WGS84 +datum=WGS84")
 
 ```
@@ -53,8 +53,8 @@ Use `filter(...)` to only keep values above or equal to zero. We don't want to i
 #| echo: true
 #| warning: false
 
-SoCalEJ %>% 
-  filter(OzoneP >= 0) %>% 
+SoCalEJ |>  
+  filter(OzoneP >= 0) |>  
   ggplot(aes(x = County, y = OzoneP)) +
   geom_boxplot()
 
@@ -80,9 +80,9 @@ This code does three things.
 #| warning: false
 
 # select socioeconomic indicators and make them narrow - only include counties above 70%
-SoCal_narrow <- SoCalEJ %>% 
-  st_set_geometry(value = NULL) %>% 
-  pivot_longer(cols = c(5:66), names_to = 'variable', values_to = 'value') %>% 
+SoCal_narrow <- SoCalEJ |>  
+  st_set_geometry(value = NULL) |>  
+  pivot_longer(cols = c(5:66), names_to = 'variable', values_to = 'value') |>  
   filter(value >=0)
 
 ```
@@ -109,8 +109,8 @@ Now let's display a box plot with three pollution variables simultaneously using
 #| echo: true
 #| warning: false
 
-SoCal_narrow %>% 
-  filter(variable %in% c('OzoneP', 'DieselPM_P', 'PolBurdP')) %>% 
+SoCal_narrow |>  
+  filter(variable %in% c('OzoneP', 'DieselPM_P', 'PolBurdP')) |>  
   ggplot(aes(x = County, y = value, fill= variable)) +
   geom_boxplot()
 
@@ -130,9 +130,9 @@ Cool!  Now we are seeing some interesting differences.
 #| echo: false
 #| warning: false
 
-SoCal_narrow %>% 
+SoCal_narrow |>  
   filter(variable %in% c('Hispanic', 'White', 'AfricanAm',
-                         'NativeAm', 'OtherMult', 'AAPI')) %>% 
+                         'NativeAm', 'OtherMult', 'AAPI')) |>  
   ggplot(aes(x = County, y = value, fill= variable)) +
   geom_boxplot() +
   theme_bw()
@@ -157,8 +157,8 @@ Is there a relationship between a dependent and an independent variable or 3? Sc
 #| echo: true
 #| warning: false
 
-SoCalEJ %>% 
-  filter(PovertyP >= 0) %>% 
+SoCalEJ  |>  
+  filter(PovertyP >= 0) |>  
   ggplot(aes(x = PovertyP, y = PolBurdP, color = County)) +
   geom_point(size = 0.5, alpha = 0.5) +
   geom_smooth() +
@@ -177,8 +177,8 @@ Let's look at one other scatter plot of estimated pollution burden and a health 
 #| echo: true
 #| warning: false
 
-SoCalEJ %>% 
-  filter(PolBurdP >= 0 & CardiovasP >= 0) %>% 
+SoCalEJ |>  
+  filter(PolBurdP >= 0 & CardiovasP >= 0) |>  
   ggplot(aes(x = PolBurdP, y = CardiovasP, color = County)) +
   geom_point(size = 0.5, alpha = 0.5) +
   geom_smooth() +
@@ -207,8 +207,8 @@ The basic histogram is shown in @fig-histogram. The distribution of high polluti
 #| echo: true
 #| warning: false
 
-SoCalEJ %>% 
-  filter(PolBurdP >= 0)  %>% 
+SoCalEJ |>  
+  filter(PolBurdP >= 0)  |>  
   ggplot(aes(x = PolBurdP)) +
   geom_histogram() #+
   #theme_bw() +
@@ -224,8 +224,8 @@ Now let's make that prettier and add a `facet_wrap()` by county as shown in @fig
 #| echo: true
 #| warning: false
 
-SoCalEJ %>% 
-  filter(PolBurdP >= 0)  %>% 
+SoCalEJ |>  
+  filter(PolBurdP >= 0)  |>  
   ggplot(aes(x = PolBurdP, fill = County)) +
   geom_histogram() +
   theme_bw() +
@@ -252,8 +252,8 @@ Basic example of a bar plot is shown in @fig-Bar.
 #| echo: true
 #| warning: false
 
-SoCalEJ %>% 
-  filter(PolBurdP >= 0)  %>% 
+SoCalEJ |>  
+  filter(PolBurdP >= 0)  |>  
   ggplot(aes(x = County)) +
   geom_bar() 
 
@@ -269,8 +269,8 @@ We can try to put the places in there, but it gets messy as shown in fig-Bar2 wh
 #| echo: true
 #| warning: false
 
-SoCalEJ %>% 
-  filter(County == 'San Bernardino') %>% 
+SoCalEJ |>  
+  filter(County == 'San Bernardino') |>  
   ggplot(aes(y = ApproxLoc)) +
   geom_bar() +
   theme(axis.text = element_text(size = 6)) +

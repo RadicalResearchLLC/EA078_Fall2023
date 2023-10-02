@@ -143,7 +143,7 @@ Let's add two more helpful things to orient viewers at a glance.
 1. Let's change the underlying tile to satellite/aerial imagery using `addProviderTiles()`
 2. Let's add a mini-map to orient the viewer to where this is using `addMiniMap()`.
 
-@fig-improvedWHmap shows the resulting map - note I changed the color to **darkred** because brown has low salience in satellite imagery of SoCal.  
+@fig-improvedWHmap shows the resulting map - note I added a palette to distinguish between existing warehouses (orange) and planned and approved warehouses (red) because brown has low salience in satellite imagery of SoCal.  
 
 ```{r}
 #| label: fig-improvedWHmap
