@@ -221,7 +221,8 @@ CentralValleyPlanned <- read_sheet('https://docs.google.com/spreadsheets/d/1Dw-H
  # rename(lng = longitude, lat = latitude) %>% 
   filter(!is.na(lng)) |> 
    filter(!is.na(lat)) |> 
-   filter(ProjectName != 'Administrative Use Permit No. PA-2300022')
+   filter(ProjectName != 'Administrative Use Permit No. PA-2300022') |> 
+  filter(ProjectName != 'Tracy Costco Depot Annex Project')
 
 ```
 
