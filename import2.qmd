@@ -128,20 +128,20 @@ If so, success is yours! Let's make a map of Pesticide census tract percentiles 
 #| label: fig-CaliforniaPesticide
 #| echo: true
 #| fig-cap: Pesticide percentile census tracts in California
-#| eval: false
+#| eval: true
 
-CalEJ <- CalEJ %>% 
-  filter(PesticideP >=0) %>%
+CalEJ <- CalEJ  |>  
+  filter(PesticideP >=0) |> 
   st_transform("+proj=longlat +ellps=WGS84 +datum=WGS84")
 
-palPest <- colorNumeric(palette = 'Reds', domain = CalEJ$PesticideP)
+palPest <- colorNumeric(palette = 'Greys', domain = CalEJ$PesticideP)
 
   leaflet(data = CalEJ) %>% 
     addTiles() %>% 
     addPolygons(color = ~palPest(PesticideP),
                 fillOpacity = 0.5,
                 weight = 2,
-                label = ~htmlEscape(ApproxLoc)) %>% 
+                label = ~ApproxLoc) %>% 
     addLegend(pal = palPest,
               title = 'Pesticide (%)', 
               values = ~PesticideP)
@@ -284,10 +284,10 @@ CA_EJI %>%
 #| label: fig-EJI_polygons
 #| echo: true
 #| fig-cap: Diesel PM indicator in California census tracts from the EJI tool
-#| eval: false
+#| eval: true
 
 ggplot(data = CA_EJI_raw) +
-  geom_sf(aes(fill = epl_dslpm)) +
+  geom_sf(aes(fill = epl_dslpm), linewidth = 0) +
   theme_bw()
 
 ```

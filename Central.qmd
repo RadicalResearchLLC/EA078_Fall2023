@@ -267,7 +267,9 @@ Note, this may require `htmltools` to be installed and/or loaded.
 #| echo: true
 
 leaflet() |> 
-  addProviderTiles(provider = providers$CartoDB.Positron) |> 
+  addProviderTiles(provider = providers$CartoDB.Positron, group = 'Basemap') |> 
+  addProviderTiles(provider = providers$Esri.WorldImagery, group = 'Imagery') |> 
+   addLayersControl(baseGroups = c('Basemap', 'Imagery'))  |> 
   addPolygons(data = WHPolygons,
               color = 'darkred',
               fillOpacity = 0.6,

@@ -30,7 +30,7 @@ Load SoCalEJ for the demonstration.
 #| warning: false
 
 URL.path <- 'https://raw.githubusercontent.com/RadicalResearchLLC/EDVcourse/main/CalEJ4/CalEJ.geoJSON'
-SoCalEJ <- st_read(URL.path) %>% 
+SoCalEJ <- st_read(URL.path) |> 
   st_transform("+proj=longlat +ellps=WGS84 +datum=WGS84")
 
 ```
@@ -42,9 +42,9 @@ SoCalEJ <- st_read(URL.path) %>%
 #| echo: true
 #| warning: false
 
-SoCal_narrow <- SoCalEJ %>% 
-  st_set_geometry(value = NULL) %>% 
-  pivot_longer(cols = c(5:66), names_to = 'variable', values_to = 'value') %>% 
+SoCal_narrow <- SoCalEJ |> 
+  st_set_geometry(value = NULL) |> 
+  pivot_longer(cols = c(5:66), names_to = 'variable', values_to = 'value') |> 
   filter(value >=0)
 
 ```
@@ -58,9 +58,9 @@ I will start with one of our pretty ggplot examples from @sec-EJdata. Let's remi
 #| echo: true
 #| fig-cap: Racial and ethnic population distribution by county in SoCal census tracts.
 
-SoCal_narrow %>% 
+SoCal_narrow |> 
   filter(variable %in% c('Hispanic', 'White', 'AfricanAm',
-                         'NativeAm', 'OtherMult', 'AAPI')) %>% 
+                         'NativeAm', 'OtherMult', 'AAPI')) |> 
   ggplot(aes(x = variable, y = value, fill= County)) +
   geom_boxplot() +
   theme_bw() + 
@@ -113,9 +113,9 @@ Lastly, it can sometimes be important to directly save a ggplot within R. Then o
 #| label: ggsave example 3
 #| echo: true
 
-Vis <- SoCal_narrow %>% 
+Vis <- SoCal_narrow |> 
   filter(variable %in% c('Hispanic', 'White', 'AfricanAm',
-                         'NativeAm', 'OtherMult', 'AAPI')) %>% 
+                         'NativeAm', 'OtherMult', 'AAPI')) |> 
   ggplot(aes(x = variable, y = value, fill= County)) +
   geom_boxplot() +
   theme_bw() + 
@@ -138,12 +138,12 @@ First, I am going to map Diesel PM for the SoCalEJ dataset in Leaflet. @fig-DPM 
 
 palDPM <- colorNumeric(palette = 'YlOrBr', domain = SoCalEJ$DieselPM_P)
 
-leaflet(data = SoCalEJ) %>% 
-  addTiles() %>% 
-  setView(lat = 33.8, lng = -117.60, zoom = 9) %>% 
+leaflet(data = SoCalEJ) |> 
+  addTiles() |> 
+  setView(lat = 33.8, lng = -117.60, zoom = 9) |> 
   addPolygons(stroke = FALSE,
               fillColor = ~palDPM(DieselPM_P),
-              fillOpacity = 0.5) %>% 
+              fillOpacity = 0.5) |> 
   addLegend(pal = palDPM, 
             title = 'Diesel PM (%)', 
             values = ~DieselPM_P)
@@ -191,12 +191,12 @@ First, the map needs to be assigned a name.  In this case, it is assigned the na
 #| label: assign leaflet map to named file
 #| echo: true
 
-DPM_map <- leaflet(data = SoCalEJ) %>% 
-  addTiles() %>% 
-  setView(lat = 33.8, lng = -117.60, zoom = 9) %>% 
+DPM_map <- leaflet(data = SoCalEJ) |> 
+  addTiles() |> 
+  setView(lat = 33.8, lng = -117.60, zoom = 9) |> 
   addPolygons(stroke = FALSE,
               fillColor = ~palDPM(DieselPM_P),
-              fillOpacity = 0.5) %>% 
+              fillOpacity = 0.5) |> 
   addLegend(pal = palDPM, 
             title = 'Diesel PM (%)', 
             values = ~DieselPM_P)
