@@ -1,0 +1,27 @@
+# Assignments for Unit 3 - Data {#sec-assignment3}
+
+::: {.callout-note appearance="simple"}
+This includes the list of assignments for Unit 3 - Data
+:::
+
+
+```{r}
+#| label: tbl-unit3assignments
+#| tbl-cap: Assignments from Unit 3
+#| echo: false
+#| warning: false
+library(dplyr)
+library(kableExtra)
+
+assignment <- c('Intro: Why Data Science Needs Feminism', 'Haley et al., Historical Redlining and Present Air Pollution in US Cities', 'Self-directed Research on Group Project')
+due.Date <- c('October 16, 2023', 'October 16, 2023', 'October 16, 2023')
+source <- c('https://data-feminism.mitpress.mit.edu/pub/frfa9szd/release/6', 'https://pubs.acs.org/doi/pdf/10.1021/acs.estlett.1c01012', 'https://www.google.com')
+
+unit3 <- data.frame(assignment, due.Date, source)# %>% 
+
+unit3  |>  mutate(link = cell_spec(assignment, 'html', link = source)) |>  
+  select(-source, -assignment) |> 
+  kableExtra::kable('html', escape = FALSE) |>  
+  kable_styling(bootstrap_options = c('condensed', 'hover'))
+
+```
