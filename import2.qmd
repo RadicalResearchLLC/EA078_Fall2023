@@ -35,7 +35,7 @@ Go to [CalEnviroScreen](https://oehha.ca.gov/calenviroscreen/report/calenviroscr
 
 Download the *Zipped Shapefile* shown in the screenshot in @fig-download
 
-![CalEnviroScreen Shapefile Location](/images/CalEJScreen_download.png){#fig-download}
+![CalEnviroScreen Shapefile Location](images/CalEJScreen_download.png){#fig-download}
 
 By default, downloads are often placed in a **Downloads** directory, although you may have changed that on your local machine.
 
@@ -49,11 +49,9 @@ By default, downloads are often placed in a **Downloads** directory, although yo
 
 For today, I will only show path (a) because it is good data science practice to keep the data in a directory associated with the visualization.
 
-1.  Identify the directory where the zipped shapefile was downloaded. On my machine, this is a **Downloads** folder which can be accessed through my web browser after the file download is complete; @fig-openFolder shows an example. The name of the file is **calenviroscreen40shpf2021shp.zip**.
+1.  Identify the directory where the zipped shapefile was downloaded. On my machine, this is a **Downloads** folder which can be accessed through my web browser after the file download is complete. The name of the file is **calenviroscreen40shpf2021shp.zip**.
 
-![Browser download](/images/download_complete.png){#fig-openFolder} 
-
-2. Identify the R working directory on your machine using the `getwd()` function.
+2.  Identify the R working directory on your machine using the `getwd()` function.
 
 ```{r}
 #| label: find working directory
@@ -66,7 +64,7 @@ getwd()
 
 4.  Check your *Files, Plots, and Packages* panel to see the zipped file is identified by RStudio. See the example in @fig-filesPanel.
 
-![Files, Plots, and Packages Panel](/images/inDirectory.png){#fig-filesPanel}
+![Files, Plots, and Packages Panel](images/inDirectory.png){#fig-filesPanel}
 
 If you see the **calenviroscreen40shpf2021shp.zip** in the directory on your machine, congratulations! You are a winner!
 
@@ -84,7 +82,7 @@ I think the process is basically the same for Mac and PC, but we will identify t
 
 Again, go to the *Files, Plots, and Packages* panel and check if there is a folder called **calenviroscreen40shpf2021shp** as shown in @fig-panel2
 
-![Shapefile folder is in the working directory!](/images/folder.png){#fig-panel2}
+![Shapefile folder is in the working directory!](images/folder.png){#fig-panel2}
 
 #### Unzip with Code
 
@@ -101,8 +99,7 @@ unzip(zipfile = 'calenviroscreen40shpf2021shp.zip', exdir = directory)
 
 Check the *Files* panel. Check for a new **CalEJ4** folder; @fig-panel3 shows how it looks on my machine.
 
-![Another folder is in the working directory!](/images/double.png){#fig-panel3} 
-### Import the Shapefile
+![Another folder is in the working directory!](/images/double.png){#fig-panel3} \### Import the Shapefile
 
 The `sf` library is used to import geospatial data. The `read_sf()` is great at read and identifying the type of spatial file.
 
@@ -124,19 +121,28 @@ If so, success is yours! Let's make a map of Pesticide census tract percentiles 
 
 ### Visualize the data
 
+The whole California map is too big, so I am just going to show the southernmost counties here by using the `filter` function for a small subset of counties. We'll also remove the tracts with no pesticide information (-999).
+
+```{r}
+#| label: import CalEJ southernmost counties
+#| echo: true
+
+CalEJ2 <- CalEJ  |>  
+  filter(County %in% c('Imperial', 'Riverside', 'San Diego', 'Orange')) |> 
+  filter(PesticideP >=0) |> 
+  st_transform(crs = 4326)
+
+```
+
 ```{r}
 #| label: fig-CaliforniaPesticide
 #| echo: true
 #| fig-cap: Pesticide percentile census tracts in California
 #| eval: true
 
-CalEJ <- CalEJ  |>  
-  filter(PesticideP >=0) |> 
-  st_transform("+proj=longlat +ellps=WGS84 +datum=WGS84")
+palPest <- colorNumeric(palette = 'Greys', domain = CalEJ2$PesticideP)
 
-palPest <- colorNumeric(palette = 'Greys', domain = CalEJ$PesticideP)
-
-  leaflet(data = CalEJ) %>% 
+leaflet(data = CalEJ2) %>% 
     addTiles() %>% 
     addPolygons(color = ~palPest(PesticideP),
                 fillOpacity = 0.5,
@@ -149,10 +155,9 @@ palPest <- colorNumeric(palette = 'Greys', domain = CalEJ$PesticideP)
 
 ### Option 2 - Directly Read the Dataset
 
-[Methane monthly average concentrations sampled by flasks](https://gml.noaa.gov/dv/data/index.php?category=Greenhouse%2BGases&parameter_name=Methane&frequency=Monthly%2BAverages&type=Flask)  
+[Methane monthly average concentrations sampled by flasks](https://gml.noaa.gov/dv/data/index.php?category=Greenhouse%2BGases&parameter_name=Methane&frequency=Monthly%2BAverages&type=Flask)
 
-Today I am selecting Mauna Loa (MLO) in Hawaii. Methane's chemical formula is CH~4~. Therefore, I will
-assign the path of URL.MLO.CH4
+Today I am selecting Mauna Loa (MLO) in Hawaii. Methane's chemical formula is CH~4~. Therefore, I will assign the path of URL.MLO.CH4
 
 ```{r}
 #| label: URL for Mauna Loa methane monthly averages
@@ -161,7 +166,7 @@ assign the path of URL.MLO.CH4
 URL.MLO.CH4 <- file.path( 'https://gml.noaa.gov/aftp/data/trace_gases/ch4/flask/surface/txt/ch4_mlo_surface-flask_1_ccgg_month.txt')
 ```
 
-We did this before for Alert, let's try the successful code using the `read_table()` function. Note, that when I follow the link, the first line of the dataset says there are **71 header lines**. 
+We did this before for Alert, let's try the successful code using the `read_table()` function. Note, that when I follow the link, the first line of the dataset says there are **71 header lines**.
 
 ```{r}
 #| label: MLO methane monthly average import 2
@@ -184,7 +189,7 @@ head(MLO.CH4)
 
 This is better.
 
-We can now visualize the data in @fig-MLOMethaneTrend.  
+We can now visualize the data in @fig-MLOMethaneTrend.
 
 ```{r}
 #| label: fig-MLOMethaneTrend
@@ -216,7 +221,7 @@ colnames(ALT.CH4) <- headers
 
 ```
 
-Now we can put the datasets together to make a combined visualization. The `bind_rows()` function from `tidyverse` let's us put the datasets take together since they have the same headers. Then we can use the `color` argument to `aes()` to get two separate time series as shown in @fig-bothTrend. I also grouped the data by the shape of the symbol to ensure that the two datasets are distinguishable.  
+Now we can put the datasets together to make a combined visualization. The `bind_rows()` function from `tidyverse` let's us put the datasets take together since they have the same headers. Then we can use the `color` argument to `aes()` to get two separate time series as shown in @fig-bothTrend. I also grouped the data by the shape of the symbol to ensure that the two datasets are distinguishable.
 
 ```{r}
 #| label: fig-bothTrend
@@ -242,18 +247,18 @@ I have not yet found a reliable method to get this to work every time on Macs an
 
 ## Exercise 1.
 
-1. Go to the [Environmental Justice Index](https://experience.arcgis.com/experience/10788c3e860d489e9e8a63a2238bb63d) Accessibility Tool.    
-2. Pick a state from the dropdown menu.
-3. Press the **Apply** button
-4. An **Actions** button should appear; @fig-Action shows where that is. Press the Actions button, select _Export All_ and choose **Export to geoJSON**.
+1.  Go to the [Environmental Justice Index](https://experience.arcgis.com/experience/10788c3e860d489e9e8a63a2238bb63d) Accessibility Tool.\
+2.  Pick a state from the dropdown menu.
+3.  Press the **Apply** button
+4.  An **Actions** button should appear; @fig-Action shows where that is. Press the Actions button, select *Export All* and choose **Export to geoJSON**.
 
-![Action button](/images/Action.png){#fig-Action}
-5. A file named **DataRecords.geojson** should appear in your default download folder.
-6. Move the **DataRecords.geojson** file to the working directory.
-7. Check the _Files_ panel. Is **DataRecords.geojson** there?  
+![Action button](images/Action.png){#fig-Action}  
+5. A file named **DataRecords.geojson** should appear in your default download folder.  
+6. Move the **DataRecords.geojson** file to the working directory.  
+7. Check the *Files* panel. Is **DataRecords.geojson** there?   
 8. Read in the file using `read_sf()`. The `dsn` argument can point directly to the file name for this type of file. Assign it a name that incorporates EJI and the state abbreviation.  
-9. Check the _Environment_ panel.  Did it import?
-10. Make a visualization - but not a map because projections are wonky?
+9. Check the *Environment* panel. Did it import?  
+10. Make a visualization - but not a map because projections are wonky?  
 
 ```{r}
 #| label: EJI index for California
@@ -291,4 +296,3 @@ ggplot(data = CA_EJI_raw) +
   theme_bw()
 
 ```
-
