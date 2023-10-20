@@ -215,5 +215,3 @@ saveWidget(widget = DPM_map, file = 'DPM_map.html')
 ```
 
 And that's it. Check in _Files_ and we have the DPM_map.html. 
-
-You are now experts!  

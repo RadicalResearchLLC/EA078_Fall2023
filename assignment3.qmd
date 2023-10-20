@@ -4,7 +4,6 @@
 This includes the list of assignments for Unit 3 - Data
 :::
 
-
 ```{r}
 #| label: tbl-unit3assignments
 #| tbl-cap: Assignments from Unit 3
@@ -25,3 +24,5 @@ unit3  |>  mutate(link = cell_spec(assignment, 'html', link = source)) |>
   kable_styling(bootstrap_options = c('condensed', 'hover'))
 
 ```
+
+Self-directed research is an open-ended assignment.  
