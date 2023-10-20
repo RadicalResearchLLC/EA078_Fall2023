@@ -48,7 +48,7 @@ getwd()
 
 Then check the files directory to make sure the `.geosjon` files are in the working directory.
 
-### Example 1 - Community Gardens
+## Example 1 - Community Gardens
 
 The first step is always to import the dataset. Let's start with the community gardens layer from the Greenprint dataset. `.geojson` files are a geospatial data file format. We can use `st_read()` to import the data.
 
@@ -73,18 +73,18 @@ leaflet() |>
   addMarkers(data = gardens)
 ```
 
-#### In-class exercise \# 1
+### In-class exercise \# 1
 
 -   Improve the basic gardens map by including a `label` of the Name of the garden on mouseover.
 -   Improve the basic gardens map by choosing to add a feature of your choice.
 
-#### In-class exercise \# 2
+### In-class exercise \# 2
 
 -   Import the FishPassages.geojson dataset
 -   Make a basic markers map of Fish Passages.
 -   Discuss with your neighbors what a Fish passage is and how it might be visualized effectively. What other should be added to this visualization?
 
-### Potential future habitats
+## Example 2 - Potential future habitats
 
 Import the dataset `FutureHabitats.geojson`.
 
@@ -118,7 +118,7 @@ leaflet() |>
 -   Modify the visualization to change the Tile layer to something more appropriate. Use the `AddProviderTiles()` function.
 -   The data from this layer is described at [TheNatureConservancy](https://www.scienceforconservation.org/products/coastal-assessment). What does this data layer show? What might be a good addition to this visualization to highlight this data layer?
 
-### Biodiversity
+## Example 3 - Biodiversity layer
 
 Import the data.
 
@@ -126,7 +126,9 @@ Import the data.
 #| label: import biodiversity data
 #| echo: TRUE
 
-biodiversity <- st_read(dsn = 'Biodiversity.geojson')
+biodiversity <- st_read(dsn = 'Biodiversity.geojson') |> 
+  st_transform(crs = 4326) |> 
+  st_zm()
 
 ```
 
@@ -142,17 +144,20 @@ palBD <- colorFactor(domain = biodiversity$RANK, palette = 'Spectral')
 
 ```
 
-@fig-Biodiversity shows the areas of high and low biodiversity in SoCal. I incorporated a legend, color palette, and used the Positron Tile layer instead of OSM.
+The @fig-BiodiversityMap shows the areas of high and low biodiversity in SoCal. I incorporated a legend, color palette, and used the Positron Tile layer instead of OSM.
 
 ```{r}
-#| label: fig-Biodiversity
-#| fig-cap: Biodiversity categories in Southern California
+#| label: fig-BiodiversityMap
 #| echo: true
+#| eval: true
+#| fig-cap: Figure caption
 
 leaflet() |> 
   addProviderTiles(provider = providers$CartoDB.Positron) |> 
+  setView(lat = 34.0, lng = -117.8, zoom = 10) |> 
   addPolygons(data = biodiversity,
-              color = ~palBD(RANK)) |> 
+              color = ~palBD(RANK),
+              weight = 1) |> 
   addLegend(data = biodiversity,
             title = 'Biodiversity',
             values = ~RANK,
