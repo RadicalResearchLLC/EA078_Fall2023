@@ -33,18 +33,18 @@ book:
       - munging.qmd  
       - import3.qmd  
       - assignment3.qmd  
-  #  - part: projects.qmd  
-  #    chapters: 
+    - part: projects.qmd  
+      chapters: 
   #    - shiny.qmd
   #    - animate.qmd
   #    - enviroVoters.qmd
-  #    - research.qmd
+      - research.qmd
   #    - maps4.qmd
   #    - markdown.qmd  
   #    - School_near_warehouses.qmd
   #    - KQED.qmd
   #    - heatmap.qmd
-  #    - assignment4.qmd
+      - assignment4.qmd
   appendices: 
     - syllabus.qmd  
     - tools.qmd

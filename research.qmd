@@ -4,9 +4,25 @@
 Today is going to be a few examples from class Group Projects
 :::
 
-## Food Insecurity
+## Group Project Topics of Interest
 
-The Food sovereignty group has a couple of datasets that need some spatial processing.  Here's a walkthrough of some spatial joins and statistics
+I photographed the following topic areas on the chalkboard.
+
+![PhotographTopics](images/GroupProjects.jpg) Topics include:
+
+-   Agricultural Land
+
+-   Community Gardens
+
+-   Habitat and Biodiversity
+
+-   Potential Future Habitat
+
+-   Fish Passages
+
+-   Bikeways
+
+-   Public accessible recreational lands
 
 ### Load libraries
 
@@ -14,207 +30,146 @@ The Food sovereignty group has a couple of datasets that need some spatial proce
 library(tidyverse)
 library(sf)
 library(leaflet)
-library(googlesheets4)
 ```
 
-Team Food Sovereignty found a nice resource on Food Insecurity from [Feeding America](https://www.feedingamerica.org/).  
+## Data directory
 
-Here's the food insecurity dataset in a [google sheet](https://docs.google.com/spreadsheets/d/1OVvr9GnRItcDlrwM3JbxktHeaeLbi1nS/edit#gid=949936614)
+The seven `.geojson` files should be in your working directory, moved from dropbox as homework. If you haven't got them there, please do that now.
 
-I can't read directly from this sheet because I don't have edit access, so I downloaded it to a spreadsheet.  I copied to my [own sheet](https://docs.google.com/spreadsheets/d/1ruW9toAaXyqQ3in57b-afeIzZmiP0K85_bKL47b3dTg/edit#gid=0).  I tried reading it in via `googlesheets4` package but that was causing weird errors, so I downloaded a .csv, moved it to the working directory and imported it that way.  
-
-I'll load the janitor library cause the column names on this worksheet are **horrible** Excel abominations.  
+Check your working directory.
 
 ```{r}
-#| label: load janitor
-#| warning: false
+#| label: check wd
 #| echo: true
 
-library(janitor)
-```
-
-Now read the data with `read_csv()`
-
-```{r}
-#| label: import food for California
-#| warning: false
-#| echo: true
-
-food <- read_csv('MMG2022_2020-2019_FeedingAmerica.xlsx - County.csv')  %>% 
-  ##Fix column names
-  clean_names() %>% 
-  ##select California data for 2020
-  filter(state == 'CA') %>% 
-  filter(year == 2020)
-
-head(food)
+getwd()
 
 ```
 
-We can add that to a map, if we had a shapefile of California counties. The [California open data portal](https://data.ca.gov/dataset/ca-geographic-boundaries) has that info.
+Then check the files directory to make sure the `.geosjon` files are in the working directory.
 
-Doing this one time, point and click is ok. Here are the steps.
+### Example 1 - Community Gardens
 
--   Download the zipped shapefile (not code)
--   Move it to your working directory (not code)
--   Unzip/extract the zip file (code or not code - your choice)
--   Read in shapefile using `read_sf()` - (code)
--   Transform to WGS84 coordinate reference system (code)
--   Make a map (code)
+The first step is always to import the dataset. Let's start with the community gardens layer from the Greenprint dataset. `.geojson` files are a geospatial data file format. We can use `st_read()` to import the data.
 
 ```{r}
-#| label: read, and transform steps for CA county shapes
-#| echo: true
+#| label: import community gardens
+#| echo: TRUE
 
-CA_county_dir <- 'CA_counties'
-
-#read the data
-CA_county <- read_sf(dsn = CA_county_dir) %>% 
- st_transform("+proj=longlat +ellps=WGS84 +datum=WGS84")
-
-head(CA_county)
+gardens <- st_read(dsn = 'CommunityGardens.geojson')
 
 ```
 
-@fig-CA_counties shows a map of California using `ggplot` and `geom_sf`
+The gardens dataset is 186 observations of 13 variables and is a Geometry type `POINT`. Let's make a leaflet map with mouseover labels. @fig-Gardens shows a map of California using \`leaflet'. We will start with simple markers. @fig-Gardens shows the result.
 
 ```{r}
-#| label: fig-CA_counties
+#| label: fig-Gardens
 #| echo: true
 #| warning: false
-#| fig-cap: California Counties
+#| fig-cap: Community gardens in Southern California
 
-ggplot(CA_county) +
-  geom_sf() +
-  theme_void() + 
-  geom_sf_text(aes(label = NAME), size = 1.5) +
-  labs(x = '', y = '')
-
+leaflet() |> 
+  addTiles() |> 
+  addMarkers(data = gardens)
 ```
 
-### Time for a quick data science lesson
+#### In-class exercise \# 1
 
-Dataset `CA_county` has the geospatial information. Dataset `food` has the food insecurity data but doesn't have the geospatial information included.
+-   Improve the basic gardens map by including a `label` of the Name of the garden on mouseover.
+-   Improve the basic gardens map by choosing to add a feature of your choice.
 
-Putting the two datasets together is required to make the map to show spatial patterns in food insecurity. Both datasets have a field that indicates the County Name. The `tidyverse` `dplyr` package has functions to [join datasets](https://dplyr.tidyverse.org/reference/mutate-joins.html) by common variables.
+#### In-class exercise \# 2
 
--   `inner_join()` - keep only records present in both datasets.
--   `left_join()` - keep **all** records from the *first* dataset and only matching variables from the second. Fill missing with **NA**
--   `right_join()` - keep **all** records from the *second* dataset and only matching variables from the first. Fill missing with **NA**
--   `full_join()` - keep **all** records both datasets - fill **NA** in any records where dataset is missing from one of the datasets.
--   `anti_join()` - keep **only** records in the first dataset that don't occur in the second dataset.
+-   Import the FishPassages.geojson dataset
+-   Make a basic markers map of Fish Passages.
+-   Discuss with your neighbors what a Fish passage is and how it might be visualized effectively. What other should be added to this visualization?
 
-![Join Venn Diagrams - credit **Tavareshugo** github](https://tavareshugo.github.io/r-intro-tidyverse-gapminder/fig/07-dplyr_joins.svg)
+### Potential future habitats
 
-For the county case, California has 58 counties, but I will try an inner join to make sure that every county name matches.
-
-Note, the `food` dataset had an extra bit of text in its county column, we'll use a tiny bit of language parsing to chop that out so the columns will match **exactly**.
-
-The string we need to remove is ` County, California`. The function we want is `str_remove()` from `stringr` part of the base `tidyverse`.
+Import the dataset `FutureHabitats.geojson`.
 
 ```{r}
-#| label: remove extraneous text
-#| echo: true
-#| warning: false
+#| label: import future habitats
+#| echo: TRUE
 
-food2 <- food %>% 
-  mutate(county = str_remove(county_state, ' County, California'))
-
-food2$county
-
-food_map <- inner_join(CA_county, food2,
-                                by = c('NAME' = 'county')) %>% 
-  mutate(pct_food_insecure = as.numeric(str_remove(overall_food_insecurity_rate_1_year, '%')))
-
-head(food_map)
-
+habitats <- st_read(dsn = 'FutureHabitats.geojson')
 
 ```
-Awesome! 
 
-@fig-MapInsecurity shows the percent food insecurity by county.
+There are 3228 features and four fields. The geometry type is `MULTIPOLYGON`.
+
+Let's make a leaflet map to see what this is.
+
+@fig-Habitats shows the potential habitats. .
 
 ```{r}
-#| label: fig-MapInsecurity
+#| label: fig-Habitats
 #| echo: true
-#| fig-cap: Percent of food insecure persons by county
+#| fig-cap: Potential future habitats listed by California Coastal Conservancy
 
-  ggplot(data = food_map, aes(fill = pct_food_insecure)) +
-  geom_sf(color = 'grey60') + 
-  geom_sf_text(aes(label = NAME), size = 1.5, color = 'white') +
-  scale_fill_viridis_c() +
-  theme_void() +
-  labs(fill = 'food insecurity (%)')
+leaflet() |> 
+  addTiles() |> 
+  addPolygons(data = habitats)
 
 ```
 
+### In-class exercise 3
 
-## Air Toxics Sacrifice Zones Resources
+-   Modify the visualization to change the Tile layer to something more appropriate. Use the `AddProviderTiles()` function.
+-   The data from this layer is described at [TheNatureConservancy](https://www.scienceforconservation.org/products/coastal-assessment). What does this data layer show? What might be a good addition to this visualization to highlight this data layer?
 
-[Toxics Release Inventory Data](https://www.epa.gov/toxics-release-inventory-tri-program/tri-basic-data-files-calendar-years-1987-present)
+### Biodiversity
 
-[National Air Toxics Dashboard](https://radicalresearch.shinyapps.io/ToxicsDashboard/)
-
-[Professor Mike](https://scholar.google.com/citations?user=QcafrNIAAAAJ&hl=en)
-
-### Toxics Release Inventory
-
-Steps:
-
--   Download the data from [TRI](https://www.epa.gov/toxics-release-inventory-tri-program/tri-basic-data-files-calendar-years-1987-present) - not code
--   Move it to your working directory (not code)
--   Read in `.csv` using `read_csv()` - (code)
--   `filter()` for pollutants and sites of interest
--   Display on map
-
-#### Import data from working directory
+Import the data.
 
 ```{r}
-#| label: import dataset
-#| echo: true
+#| label: import biodiversity data
+#| echo: TRUE
 
-TRI_2021 <- read_csv('2021_us.csv') %>% 
-  janitor::clean_names() %>% 
-  filter(x34_chemical == 'Ethylene oxide') %>% 
-  select(x4_facility_name, x6_city, x12_latitude, x13_longitude, x48_5_1_fugitive_air, x49_5_2_stack_air, x62_on_site_release_total) %>% 
-  rename(facility = x4_facility_name,
-         city = x6_city,
-         lat = x12_latitude,
-         lng = x13_longitude,
-         emissions = x62_on_site_release_total)
-
-head(TRI_2021)
+biodiversity <- st_read(dsn = 'Biodiversity.geojson')
 
 ```
 
-@fig-EtO
+This dataset has 6 fields, 2015 features, and is a `MULTIPOLYGON` geometry type. One of the fields is described as `RANK` and has a ranking. Let's make a leaflet visualization using a Rank color palette.
+
+First, make the color palette. This is a factor, rather than a numeric or quantile, so we use the `colorFactor()` function. I chose the `Spectral` palette but you can choose any palette you think will work.
 
 ```{r}
-#| label: fig-EtO
-#| fig-cap: Ethylene oxide facilities reporting to TRI in 2021
+#| label: Color palette for biodiversity
 #| echo: true
 
-library(leaflet)
-library(htmltools)
-
-leaflet() %>% 
-  addTiles() %>% 
-  addProviderTiles(provider = providers$Esri.WorldImagery, 
-                     group = 'Imagery') %>% 
-  addLayersControl(baseGroups = c('Basemap', 'Imagery'), overlayGroups = 'TRI EtO Facilities',
-                   options = layersControlOptions(collapsed = FALSE)) %>% 
-  addCircles(data = TRI_2021, weight = 1, stroke = FALSE,
-             color = 'red',
-             radius = ~emissions * 10, popup = ~facility,
-             opacity = 0.5,
-             group = 'TRI EtO Facilities') %>%
-  addCircles(data = TRI_2021, color = 'red', opacity = 0.3)
+palBD <- colorFactor(domain = biodiversity$RANK, palette = 'Spectral')
 
 ```
 
-Examine this map and tell me at least three things that are wrong with it.
+@fig-Biodiversity shows the areas of high and low biodiversity in SoCal. I incorporated a legend, color palette, and used the Positron Tile layer instead of OSM.
 
+```{r}
+#| label: fig-Biodiversity
+#| fig-cap: Biodiversity categories in Southern California
+#| echo: true
 
+leaflet() |> 
+  addProviderTiles(provider = providers$CartoDB.Positron) |> 
+  addPolygons(data = biodiversity,
+              color = ~palBD(RANK)) |> 
+  addLegend(data = biodiversity,
+            title = 'Biodiversity',
+            values = ~RANK,
+            pal = palBD)
 
+```
 
+This is an interesting map, but has a definite resolution issue as the hex-grids are pretty obvious when one zooms in to a municipal level.
 
+### In-class exercise #4
+
+-   Import the `AgLand.geojson` dataset.
+-   Make a leaflet map showing the TYPE of agricultural land.
+-   Choose a provider tile that adds information to the map.
+
+### In-class exercise #5
+
+-   Import one of the other datasets.
+-   Identify the GEOMETRY TYPE
+-   Make a leaflet map with the appropriate type of data display
