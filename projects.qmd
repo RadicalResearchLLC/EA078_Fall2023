@@ -12,3 +12,4 @@ I will provide a basic overview of the topic areas, but the class will spend mos
 * Individual visualization - prototype
 * Group presentation - likely in groups of four
 * Group project - likely in groups of four
+
