@@ -27,26 +27,6 @@ library(sf)
 
 ```
 
-Next, install and load `janitor`.
-
-```{r}
-#| label: install janitor example
-#| echo: true
-#| eval: false
-
-install.packages('janitor')
-
-```
-
-```{r}
-#| label: load janitor
-#| echo: true
-#| message: false
-
-library(janitor)
-library(knitr)
-
-```
 
 ### [`st_transform()`](https://r-spatial.github.io/sf/reference/st_transform.html)
 
@@ -61,21 +41,7 @@ URL.path <- 'https://raw.githubusercontent.com/RadicalResearchLLC/EDVcourse/main
 SoCalEJ <- st_read(URL.path) %>% 
   st_transform("+proj=longlat +ellps=WGS84 +datum=WGS84")
 
-WH.url <- 'https://raw.githubusercontent.com/RadicalResearchLLC/WarehouseMap/main/WarehouseCITY/geoJSON/finalParcels.geojson'
-warehouses <- st_read(WH.url) %>% 
-  st_transform("+proj=longlat +ellps=WGS84 +datum=WGS84")
-
 ```
-
-### [`janitor::clean_names()`](https://www.rdocumentation.org/packages/janitor/versions/1.2.0/topics/clean_names)
-
-The first step in being able to deal with a dataset is to have the names of the variables comport with standard R naming format. `clean_names()` gets rid of those spaces and standardizes the capitalization of letters for column names.  
-
-If your dataset column names have spaces or strange characters (parentheses, $, or /), the best way to deal with that is to instantly run `clean_names()`. R functions do not like special characters in variable names.  
-
-In @sec-debt we used `janitor::clean_names()` to fix the import of the ecological footprint excel spreadsheet.  Here's the example again.
-
-### FIXME - add a section on 'clean_names()' using SoCalEJ
 
 ### [`filter()`](https://dplyr.tidyverse.org/reference/filter.html)
 
@@ -145,8 +111,6 @@ SoCal_narrow %>%
 
 @sec-EJTheory included an example of using `select()` on the SoCalEJ dataset. The raw dataset is MESSY! 
 
-FIXME
-
 ### [`mutate()`](https://dplyr.tidyverse.org/reference/mutate.html)
 
 `mutate()` adds new variables and preserves existing ones. `mutate()` can be used to overwrite existing variables - careful with name choices.
@@ -157,23 +121,56 @@ This is a great function for synthesizing information, transformations, and comb
 - creating a rate or normalizing data - use `mutate()`
 - need a new variable or category - use `mutate()`
 
-I used `mutate()` to create a decimal date function for our CH~4~ visualizations in @sec-import.  I used `mutate()` to correct the spelling of _San Bernardino_ in @sec-EJtools, in combination with the `ifelse()` function. I used `mutate()` in @sec-research to calculate volumes of rain by multiplying precipitation values (inches) by area (m^2^) of counties.
+I used `mutate()` to create a decimal date function for our CH~4~ visualizations in @sec-import.  
 
-Let's use `mutate()` to convert the TRI ethylene oxide emissions from pounds to kilograms to avoid imperialism. 
+Let's use `mutate()` to convert the estimate the census tract population of Hispanic and African American groups in SoCalEJ.  In SoCalEJ, we have a variable called `TotPop19`, which is the total population in 2019. We also have the percentage of population by census tract in each ethnic group.  We can use mutate to create new variables.  
 
-1 pound = 0.453592 kilograms
+```{r}
+#| label: Mutate example
+#| echo: true
+#| warning: false 
 
-FIXME
+SoCalEJ2 <- SoCalEJ |> 
+  #select only used variables
+  select(Tract, TotPop19, Hispanic, AfricanAm) |> 
+  #filter to make sure we don't divide by zero population tracts
+  filter(TotPop19 > 0 & Hispanic >= 0 & AfricanAm >= 0) |> 
+  #mutate to create new variables
+  mutate(HispTot = round(Hispanic*TotPop19/100, 0),
+         AfriAmTot = round(AfricanAm*TotPop19/100,0))
+
+head(SoCalEJ2)
+
+```
+
+Now let's make a figure of the Hispanic population in the Inland Empire.
+
+```{r}
+#| label: Simple boxplot
+#| echo: true
+#| warning: false 
+
+ggplot() +
+  geom_sf(data = SoCalEJ2, aes(fill = HispTot)) +
+  theme_minimal() +
+  scale_fill_viridis_c(direction = -1) +
+  coord_sf(xlim =c(-118, -117),
+           ylim = c(33.4, 34.2)) +
+  labs(fill = 'Hispanic population')
+
+```
+
+#### Exercise
+
+- Make a figure of African American (or another ethnic/racial variable) population.
+- Choose a different set of Southern California coordinates to focus in on.  
+- Choose another fill scheme (either another viridis or another scale_fill_brewer). 
 
 ### [`summarize()`](https://dplyr.tidyverse.org/reference/summarise.html)
 
 `summarize()` creates a new table that reduces a dataset to a summary of all observations.  When combined with the `group_by()` function, it allows extremely powerful manipulation and generation of summary statistics about a dataset.  
 
-I have not demonstrated `summarize()` yet in this class, which is a major deficiency on my part.  Let's examine it with `TRI_2021`.
-
-
-
-A more interesting example includes the `group_by()` function. This function identifies categories to summarize the data by.  The SoCalEJ_narrow dataset has some simple grouping categories that can be used to show this. 
+This example also includes the `group_by()` function. This function identifies categories to summarize the data by.  The SoCalEJ_narrow dataset has some simple grouping categories that can be used to show this. 
 
 ```{r}
 #| label: group by summarize on SoCal_narrow
@@ -184,8 +181,7 @@ SoCal_basic <- SoCal_narrow %>%
   group_by(variable) %>% 
   summarize(count = n(), average = mean(value), min = min(value), max =       max(value), stdev = sd(value))
 
-kable(SoCal_basic, digits = 1, caption = 'An example summary Table',
-      format.args = list(scientific = FALSE))
+head(SoCal_basic)
 ```
 
 And of course, we can combine our functions to dig even deeper. This example focuses on just a few variables to group the data into smaller subsets of County.
@@ -201,8 +197,7 @@ SoCal_complicated <- SoCal_narrow %>%
   group_by(variable, County) %>% 
   summarize(count = n(), average = mean(value), min = min(value), max =       max(value), stdev = sd(value))
 
-kable(SoCal_complicated, digits = 1, caption = 'An example summary Table',
-      format.args = list(scientific = FALSE))
+head(SoCal_complicated, 15)
 
 ```
 
