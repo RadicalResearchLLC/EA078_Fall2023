@@ -336,12 +336,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">14.1</span> Introduction</a>
   <ul>
 <li><a href="#st_transform" id="toc-st_transform" class="nav-link" data-scroll-target="#st_transform"><span class="header-section-number">14.1.1</span> <code>st_transform()</code></a></li>
-  <li><a href="#janitorclean_names" id="toc-janitorclean_names" class="nav-link" data-scroll-target="#janitorclean_names"><span class="header-section-number">14.1.2</span> <code>janitor::clean_names()</code></a></li>
-  <li><a href="#fixme---add-a-section-on-clean_names-using-socalej" id="toc-fixme---add-a-section-on-clean_names-using-socalej" class="nav-link" data-scroll-target="#fixme---add-a-section-on-clean_names-using-socalej"><span class="header-section-number">14.1.3</span> FIXME - add a section on ‘clean_names()’ using SoCalEJ</a></li>
-  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="header-section-number">14.1.4</span> <code>filter()</code></a></li>
-  <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select"><span class="header-section-number">14.1.5</span> <code>select()</code></a></li>
-  <li><a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate"><span class="header-section-number">14.1.6</span> <code>mutate()</code></a></li>
-  <li><a href="#summarize" id="toc-summarize" class="nav-link" data-scroll-target="#summarize"><span class="header-section-number">14.1.7</span> <code>summarize()</code></a></li>
+  <li><a href="#filter" id="toc-filter" class="nav-link" data-scroll-target="#filter"><span class="header-section-number">14.1.2</span> <code>filter()</code></a></li>
+  <li><a href="#select" id="toc-select" class="nav-link" data-scroll-target="#select"><span class="header-section-number">14.1.3</span> <code>select()</code></a></li>
+  <li>
+<a href="#mutate" id="toc-mutate" class="nav-link" data-scroll-target="#mutate"><span class="header-section-number">14.1.4</span> <code>mutate()</code></a>
+  <ul class="collapse">
+<li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="header-section-number">14.1.4.1</span> Exercise</a></li>
+  </ul>
+</li>
+  <li><a href="#summarize" id="toc-summarize" class="nav-link" data-scroll-target="#summarize"><span class="header-section-number">14.1.5</span> <code>summarize()</code></a></li>
   </ul>
 </li>
   </ul></nav>
@@ -388,20 +391,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Next, install and load <code>janitor</code>.</p>
-<div class="cell">
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'janitor'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor">janitor</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/">knitr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <section id="st_transform" class="level3" data-number="14.1.1"><h3 data-number="14.1.1" class="anchored" data-anchor-id="st_transform">
 <span class="header-section-number">14.1.1</span> <a href="https://r-spatial.github.io/sf/reference/st_transform.html"><code>st_transform()</code></a>
 </h3>
 <p><code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code> transforms or converts coordinates of simple feature geospatial data. Spatial projections are fraught with peril in geospatial visualizations. Our first function is one that has been used a bunch of times - <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code>. Leaflet needs its data transformed into WGS84 and <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform()</a></code> is the function that makes the coordinate reference system go the right place.</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">URL.path</span> <span class="op">&lt;-</span> <span class="st">'https://raw.githubusercontent.com/RadicalResearchLLC/EDVcourse/main/CalEJ4/CalEJ.geoJSON'</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">URL.path</span> <span class="op">&lt;-</span> <span class="st">'https://raw.githubusercontent.com/RadicalResearchLLC/EDVcourse/main/CalEJ4/CalEJ.geoJSON'</span></span>
 <span><span class="va">SoCalEJ</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="va">URL.path</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="st">"+proj=longlat +ellps=WGS84 +datum=WGS84"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -414,30 +409,9 @@ Dimension:     XY
 Bounding box:  xmin: 97418.38 ymin: -577885.1 xmax: 539719.6 ymax: -236300
 Projected CRS: NAD83 / California Albers</code></pre>
 </div>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">WH.url</span> <span class="op">&lt;-</span> <span class="st">'https://raw.githubusercontent.com/RadicalResearchLLC/WarehouseMap/main/WarehouseCITY/geoJSON/finalParcels.geojson'</span></span>
-<span><span class="va">warehouses</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_read.html">st_read</a></span><span class="op">(</span><span class="va">WH.url</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html">st_transform</a></span><span class="op">(</span><span class="st">"+proj=longlat +ellps=WGS84 +datum=WGS84"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Reading layer `finalParcels' from data source 
-  `https://raw.githubusercontent.com/RadicalResearchLLC/WarehouseMap/main/WarehouseCITY/geoJSON/finalParcels.geojson' 
-  using driver `GeoJSON'
-Simple feature collection with 9021 features and 12 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: -118.8037 ymin: 33.43325 xmax: -114.4085 ymax: 35.55527
-Geodetic CRS:  WGS 84</code></pre>
 </div>
-</div>
-</section><section id="janitorclean_names" class="level3" data-number="14.1.2"><h3 data-number="14.1.2" class="anchored" data-anchor-id="janitorclean_names">
-<span class="header-section-number">14.1.2</span> <a href="https://www.rdocumentation.org/packages/janitor/versions/1.2.0/topics/clean_names"><code>janitor::clean_names()</code></a>
-</h3>
-<p>The first step in being able to deal with a dataset is to have the names of the variables comport with standard R naming format. <code><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names()</a></code> gets rid of those spaces and standardizes the capitalization of letters for column names.</p>
-<p>If your dataset column names have spaces or strange characters (parentheses, $, or /), the best way to deal with that is to instantly run <code><a href="https://sfirke.github.io/janitor/reference/clean_names.html">clean_names()</a></code>. R functions do not like special characters in variable names.</p>
-<p>In <span class="quarto-unresolved-ref">?sec-debt</span> we used <code><a href="https://sfirke.github.io/janitor/reference/clean_names.html">janitor::clean_names()</a></code> to fix the import of the ecological footprint excel spreadsheet. Here’s the example again.</p>
-</section><section id="fixme---add-a-section-on-clean_names-using-socalej" class="level3" data-number="14.1.3"><h3 data-number="14.1.3" class="anchored" data-anchor-id="fixme---add-a-section-on-clean_names-using-socalej">
-<span class="header-section-number">14.1.3</span> FIXME - add a section on ‘clean_names()’ using SoCalEJ</h3>
-</section><section id="filter" class="level3" data-number="14.1.4"><h3 data-number="14.1.4" class="anchored" data-anchor-id="filter">
-<span class="header-section-number">14.1.4</span> <a href="https://dplyr.tidyverse.org/reference/filter.html"><code>filter()</code></a>
+</section><section id="filter" class="level3" data-number="14.1.2"><h3 data-number="14.1.2" class="anchored" data-anchor-id="filter">
+<span class="header-section-number">14.1.2</span> <a href="https://dplyr.tidyverse.org/reference/filter.html"><code>filter()</code></a>
 </h3>
 <p><code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> is used to subset a data table, retaining any rows that meet the conditions of the filter.</p>
 <ul>
@@ -452,7 +426,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </ul>
 <p>In the first example, <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code>was applied to remove the values that were set at -999; we only believed values from 0-100 were reasonable. <a href="#fig-Asthma_county1">Figure&nbsp;<span>14.1</span></a> uses <code><a href="https://dplyr.tidyverse.org/reference/filter.html">filter()</a></code> to remove those values. I’ve also shown an example without the filter applied in <a href="#fig-Asthma_all">Figure&nbsp;<span>14.2</span></a> . Not removing those rows messes up our visualization.</p>
 <div class="cell">
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SoCalEJ</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SoCalEJ</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">AsthmaP</span> <span class="op">&gt;=</span> <span class="fl">0</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">County</span>, y <span class="op">=</span> <span class="va">AsthmaP</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -464,7 +438,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SoCalEJ</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SoCalEJ</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">#filter()</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">County</span>, y <span class="op">=</span> <span class="va">AsthmaP</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -477,7 +451,7 @@ Geodetic CRS:  WGS 84</code></pre>
 </div>
 <p>In <a href="EJdata.html"><span>Chapter&nbsp;9</span></a> we also applied filter in two successive data transformations that are good examples of data munging. After creating a narrow data set, we apply <code>filter(value &gt;=0)</code> to remove all negative values. Then we applied <code>filter(variable %in% c('OzoneP', 'DieselPM_P', 'PolBurdP'))</code> to select three specific variable choices out of the 55 we had available. If we exclude that second filter, the plot becomes crazy busy.</p>
 <div class="cell">
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># select socioeconomic indicators and make them narrow - only include counties above 70%</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># select socioeconomic indicators and make them narrow - only include counties above 70%</span></span>
 <span><span class="va">SoCal_narrow</span> <span class="op">&lt;-</span> <span class="va">SoCalEJ</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_geometry.html">st_set_geometry</a></span><span class="op">(</span>value <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">66</span><span class="op">)</span>, names_to <span class="op">=</span> <span class="st">'variable'</span>, values_to <span class="op">=</span> <span class="st">'value'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -490,7 +464,7 @@ Geodetic CRS:  WGS 84</code></pre>
 <div class="cell-output-display">
 <p><img src="munging_files/figure-html/Tidy data for manipulation-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SoCal_narrow</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SoCal_narrow</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="co">#filter(variable %in% c('OzoneP', 'DieselPM_P', 'PolBurdP')) %&gt;% </span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">County</span>, y <span class="op">=</span> <span class="va">value</span>, fill<span class="op">=</span> <span class="va">variable</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -498,8 +472,8 @@ Geodetic CRS:  WGS 84</code></pre>
 <p><img src="munging_files/figure-html/Tidy data for manipulation-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section><section id="select" class="level3" data-number="14.1.5"><h3 data-number="14.1.5" class="anchored" data-anchor-id="select">
-<span class="header-section-number">14.1.5</span> <a href="https://dplyr.tidyverse.org/reference/select.html"><code>select()</code></a>
+</section><section id="select" class="level3" data-number="14.1.3"><h3 data-number="14.1.3" class="anchored" data-anchor-id="select">
+<span class="header-section-number">14.1.3</span> <a href="https://dplyr.tidyverse.org/reference/select.html"><code>select()</code></a>
 </h3>
 <p><code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> variables (i.e., columns) in a data table for retention.</p>
 <ul>
@@ -509,9 +483,8 @@ Geodetic CRS:  WGS 84</code></pre>
 <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> also has some pattern matching helpers.</li>
 </ul>
 <p><span class="quarto-unresolved-ref">?sec-EJTheory</span> included an example of using <code><a href="https://dplyr.tidyverse.org/reference/select.html">select()</a></code> on the SoCalEJ dataset. The raw dataset is MESSY!</p>
-<p>FIXME</p>
-</section><section id="mutate" class="level3" data-number="14.1.6"><h3 data-number="14.1.6" class="anchored" data-anchor-id="mutate">
-<span class="header-section-number">14.1.6</span> <a href="https://dplyr.tidyverse.org/reference/mutate.html"><code>mutate()</code></a>
+</section><section id="mutate" class="level3" data-number="14.1.4"><h3 data-number="14.1.4" class="anchored" data-anchor-id="mutate">
+<span class="header-section-number">14.1.4</span> <a href="https://dplyr.tidyverse.org/reference/mutate.html"><code>mutate()</code></a>
 </h3>
 <p><code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> adds new variables and preserves existing ones. <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> can be used to overwrite existing variables - careful with name choices.</p>
 <p>This is a great function for synthesizing information, transformations, and combining variables.</p>
@@ -523,533 +496,82 @@ Geodetic CRS:  WGS 84</code></pre>
 <li>need a new variable or category - use <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code>
 </li>
 </ul>
-<p>I used <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> to create a decimal date function for our CH<sub>4</sub> visualizations in <span class="quarto-unresolved-ref">?sec-import</span>. I used <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> to correct the spelling of <em>San Bernardino</em> in <a href="EJtools.html"><span>Chapter&nbsp;8</span></a>, in combination with the <code><a href="https://rdrr.io/r/base/ifelse.html">ifelse()</a></code> function. I used <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> in <a href="research.html"><span>Chapter&nbsp;17</span></a> to calculate volumes of rain by multiplying precipitation values (inches) by area (m<sup>2</sup>) of counties.</p>
-<p>Let’s use <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> to convert the TRI ethylene oxide emissions from pounds to kilograms to avoid imperialism.</p>
-<p>1 pound = 0.453592 kilograms</p>
-<p>FIXME</p>
-</section><section id="summarize" class="level3" data-number="14.1.7"><h3 data-number="14.1.7" class="anchored" data-anchor-id="summarize">
-<span class="header-section-number">14.1.7</span> <a href="https://dplyr.tidyverse.org/reference/summarise.html"><code>summarize()</code></a>
+<p>I used <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> to create a decimal date function for our CH<sub>4</sub> visualizations in <span class="quarto-unresolved-ref">?sec-import</span>.</p>
+<p>Let’s use <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate()</a></code> to convert the estimate the census tract population of Hispanic and African American groups in SoCalEJ. In SoCalEJ, we have a variable called <code>TotPop19</code>, which is the total population in 2019. We also have the percentage of population by census tract in each ethnic group. We can use mutate to create new variables.</p>
+<div class="cell">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SoCalEJ2</span> <span class="op">&lt;-</span> <span class="va">SoCalEJ</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="co">#select only used variables</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">Tract</span>, <span class="va">TotPop19</span>, <span class="va">Hispanic</span>, <span class="va">AfricanAm</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="co">#filter to make sure we don't divide by zero population tracts</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">TotPop19</span> <span class="op">&gt;</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">Hispanic</span> <span class="op">&gt;=</span> <span class="fl">0</span> <span class="op">&amp;</span> <span class="va">AfricanAm</span> <span class="op">&gt;=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="co">#mutate to create new variables</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>HispTot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">Hispanic</span><span class="op">*</span><span class="va">TotPop19</span><span class="op">/</span><span class="fl">100</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>         AfriAmTot <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">AfricanAm</span><span class="op">*</span><span class="va">TotPop19</span><span class="op">/</span><span class="fl">100</span>,<span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">SoCalEJ2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 6 features and 6 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -117.874 ymin: 33.5556 xmax: -117.7157 ymax: 33.64253
+Geodetic CRS:  +proj=longlat +ellps=WGS84 +datum=WGS84
+       Tract TotPop19 Hispanic AfricanAm                       geometry HispTot
+1 6059062640     3741  16.4662    4.9452 MULTIPOLYGON (((-117.7178 3...     616
+2 6059062641     5376  22.0238    1.3765 MULTIPOLYGON (((-117.7166 3...    1184
+3 6059062642     2834   5.6104    0.3881 MULTIPOLYGON (((-117.8596 3...     159
+4 6059062643     7231   4.4530    0.0000 MULTIPOLYGON (((-117.7986 3...     322
+5 6059062644     8487   8.8488    0.0000 MULTIPOLYGON (((-117.8521 3...     751
+6 6059062645     6527   3.8302    0.2911 MULTIPOLYGON (((-117.8269 3...     250
+  AfriAmTot
+1       185
+2        74
+3        11
+4         0
+5         0
+6        19</code></pre>
+</div>
+</div>
+<p>Now let’s make a figure of the Hispanic population in the Inland Empire.</p>
+<div class="cell">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">SoCalEJ2</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">HispTot</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span>direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">coord_sf</a></span><span class="op">(</span>xlim <span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">118</span>, <span class="op">-</span><span class="fl">117</span><span class="op">)</span>,</span>
+<span>           ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">33.4</span>, <span class="fl">34.2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">'Hispanic population'</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="munging_files/figure-html/Simple boxplot-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<section id="exercise" class="level4" data-number="14.1.4.1"><h4 data-number="14.1.4.1" class="anchored" data-anchor-id="exercise">
+<span class="header-section-number">14.1.4.1</span> Exercise</h4>
+<ul>
+<li>Make a figure of African American (or another ethnic/racial variable) population.</li>
+<li>Choose a different set of Southern California coordinates to focus in on.<br>
+</li>
+<li>Choose another fill scheme (either another viridis or another scale_fill_brewer).</li>
+</ul></section></section><section id="summarize" class="level3" data-number="14.1.5"><h3 data-number="14.1.5" class="anchored" data-anchor-id="summarize">
+<span class="header-section-number">14.1.5</span> <a href="https://dplyr.tidyverse.org/reference/summarise.html"><code>summarize()</code></a>
 </h3>
 <p><code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> creates a new table that reduces a dataset to a summary of all observations. When combined with the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> function, it allows extremely powerful manipulation and generation of summary statistics about a dataset.</p>
-<p>I have not demonstrated <code><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize()</a></code> yet in this class, which is a major deficiency on my part. Let’s examine it with <code>TRI_2021</code>.</p>
-<p>A more interesting example includes the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> function. This function identifies categories to summarize the data by. The SoCalEJ_narrow dataset has some simple grouping categories that can be used to show this.</p>
+<p>This example also includes the <code><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by()</a></code> function. This function identifies categories to summarize the data by. The SoCalEJ_narrow dataset has some simple grouping categories that can be used to show this.</p>
 <div class="cell">
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SoCal_basic</span> <span class="op">&lt;-</span> <span class="va">SoCal_narrow</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">SoCal_basic</span> <span class="op">&lt;-</span> <span class="va">SoCal_narrow</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">variable</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>count <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>, average <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>, min <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>, max <span class="op">=</span>       <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span>, stdev <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">value</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">SoCal_basic</span>, digits <span class="op">=</span> <span class="fl">1</span>, caption <span class="op">=</span> <span class="st">'An example summary Table'</span>,</span>
-<span>      format.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>scientific <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<caption>An example summary Table</caption>
-<thead><tr class="header">
-<th style="text-align: left;">variable</th>
-<th style="text-align: right;">count</th>
-<th style="text-align: right;">average</th>
-<th style="text-align: right;">min</th>
-<th style="text-align: right;">max</th>
-<th style="text-align: right;">stdev</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">AAPI</td>
-<td style="text-align: right;">3728</td>
-<td style="text-align: right;">13.3</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">87.6</td>
-<td style="text-align: right;">14.8</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AfricanAm</td>
-<td style="text-align: right;">3728</td>
-<td style="text-align: right;">6.4</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">84.7</td>
-<td style="text-align: right;">10.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Asthma</td>
-<td style="text-align: right;">3737</td>
-<td style="text-align: right;">50.4</td>
-<td style="text-align: right;">4.3</td>
-<td style="text-align: right;">202.6</td>
-<td style="text-align: right;">26.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AsthmaP</td>
-<td style="text-align: right;">3737</td>
-<td style="text-align: right;">49.7</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">99.9</td>
-<td style="text-align: right;">27.7</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CIscore</td>
-<td style="text-align: right;">3693</td>
-<td style="text-align: right;">33.9</td>
-<td style="text-align: right;">1.8</td>
-<td style="text-align: right;">82.4</td>
-<td style="text-align: right;">16.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CIscoreP</td>
-<td style="text-align: right;">3693</td>
-<td style="text-align: right;">59.9</td>
-<td style="text-align: right;">0.2</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">27.3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Cardiovas</td>
-<td style="text-align: right;">3737</td>
-<td style="text-align: right;">14.3</td>
-<td style="text-align: right;">3.9</td>
-<td style="text-align: right;">40.9</td>
-<td style="text-align: right;">5.2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CardiovasP</td>
-<td style="text-align: right;">3737</td>
-<td style="text-align: right;">55.4</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">27.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Child_10</td>
-<td style="text-align: right;">3728</td>
-<td style="text-align: right;">12.0</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">51.5</td>
-<td style="text-align: right;">4.3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Cleanup</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">9.8</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">276.2</td>
-<td style="text-align: right;">16.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CleanupP</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">37.6</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">34.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">DieselPM</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">0.3</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">14.6</td>
-<td style="text-align: right;">0.3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">DieselPM_P</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">54.7</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">27.8</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">DrinkWat</td>
-<td style="text-align: right;">3727</td>
-<td style="text-align: right;">565.3</td>
-<td style="text-align: right;">33.9</td>
-<td style="text-align: right;">1161.1</td>
-<td style="text-align: right;">195.8</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">DrinkWatP</td>
-<td style="text-align: right;">3727</td>
-<td style="text-align: right;">62.8</td>
-<td style="text-align: right;">0.1</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">25.3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">EducatP</td>
-<td style="text-align: right;">3688</td>
-<td style="text-align: right;">55.7</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">29.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Educatn</td>
-<td style="text-align: right;">3688</td>
-<td style="text-align: right;">20.4</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">72.9</td>
-<td style="text-align: right;">15.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Elderly65</td>
-<td style="text-align: right;">3728</td>
-<td style="text-align: right;">14.1</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">8.3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">GWThreat</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">11.5</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">348.4</td>
-<td style="text-align: right;">22.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">GWThreatP</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">31.6</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">99.9</td>
-<td style="text-align: right;">31.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">HazWaste</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">0.7</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">22.3</td>
-<td style="text-align: right;">1.6</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">HazWasteP</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">49.5</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">29.8</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Hispanic</td>
-<td style="text-align: right;">3728</td>
-<td style="text-align: right;">46.1</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">27.4</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">HousBurd</td>
-<td style="text-align: right;">3673</td>
-<td style="text-align: right;">20.7</td>
-<td style="text-align: right;">1.6</td>
-<td style="text-align: right;">78.2</td>
-<td style="text-align: right;">8.6</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">HousBurdP</td>
-<td style="text-align: right;">3673</td>
-<td style="text-align: right;">58.2</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">28.2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ImpWatBod</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">2.7</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">29.0</td>
-<td style="text-align: right;">4.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ImpWatBodP</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">23.8</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">99.7</td>
-<td style="text-align: right;">31.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Lead</td>
-<td style="text-align: right;">3695</td>
-<td style="text-align: right;">54.2</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">99.4</td>
-<td style="text-align: right;">24.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Lead_P</td>
-<td style="text-align: right;">3695</td>
-<td style="text-align: right;">56.4</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">29.8</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Ling_Isol</td>
-<td style="text-align: right;">3607</td>
-<td style="text-align: right;">11.7</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">10.3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Ling_IsolP</td>
-<td style="text-align: right;">3607</td>
-<td style="text-align: right;">54.9</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">29.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">LowBirWP</td>
-<td style="text-align: right;">3642</td>
-<td style="text-align: right;">53.2</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">28.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">LowBirtWt</td>
-<td style="text-align: right;">3642</td>
-<td style="text-align: right;">5.2</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">12.7</td>
-<td style="text-align: right;">1.6</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">NativeAm</td>
-<td style="text-align: right;">3728</td>
-<td style="text-align: right;">0.3</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">2.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">OtherMult</td>
-<td style="text-align: right;">3728</td>
-<td style="text-align: right;">2.6</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">14.8</td>
-<td style="text-align: right;">2.3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Ozone</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">0.1</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">0.1</td>
-<td style="text-align: right;">0.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">OzoneP</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">65.3</td>
-<td style="text-align: right;">16.8</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">23.7</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PM2_5</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">11.3</td>
-<td style="text-align: right;">4.8</td>
-<td style="text-align: right;">15.4</td>
-<td style="text-align: right;">1.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PM2_5_P</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">66.8</td>
-<td style="text-align: right;">0.9</td>
-<td style="text-align: right;">99.4</td>
-<td style="text-align: right;">21.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Pesticide</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">18.2</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">16311.6</td>
-<td style="text-align: right;">353.9</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PesticideP</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">9.4</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">99.1</td>
-<td style="text-align: right;">20.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PolBurdP</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">63.1</td>
-<td style="text-align: right;">0.2</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">26.8</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PolBurdSc</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">5.9</td>
-<td style="text-align: right;">1.6</td>
-<td style="text-align: right;">10.0</td>
-<td style="text-align: right;">1.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PollBurd</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">48.4</td>
-<td style="text-align: right;">12.9</td>
-<td style="text-align: right;">81.9</td>
-<td style="text-align: right;">12.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PopChar</td>
-<td style="text-align: right;">3693</td>
-<td style="text-align: right;">53.9</td>
-<td style="text-align: right;">4.4</td>
-<td style="text-align: right;">95.0</td>
-<td style="text-align: right;">20.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PopCharP</td>
-<td style="text-align: right;">3693</td>
-<td style="text-align: right;">55.7</td>
-<td style="text-align: right;">0.1</td>
-<td style="text-align: right;">99.9</td>
-<td style="text-align: right;">28.2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">PopCharSc</td>
-<td style="text-align: right;">3693</td>
-<td style="text-align: right;">5.6</td>
-<td style="text-align: right;">0.5</td>
-<td style="text-align: right;">9.9</td>
-<td style="text-align: right;">2.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Pop_10_64</td>
-<td style="text-align: right;">3728</td>
-<td style="text-align: right;">73.9</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">7.2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Poverty</td>
-<td style="text-align: right;">3703</td>
-<td style="text-align: right;">33.7</td>
-<td style="text-align: right;">2.1</td>
-<td style="text-align: right;">93.2</td>
-<td style="text-align: right;">18.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">PovertyP</td>
-<td style="text-align: right;">3703</td>
-<td style="text-align: right;">54.2</td>
-<td style="text-align: right;">0.1</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">28.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Shape_Area</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">22329204.5</td>
-<td style="text-align: right;">70452.5</td>
-<td style="text-align: right;">18117312341.2</td>
-<td style="text-align: right;">379230046.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Shape_Leng</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">9778.8</td>
-<td style="text-align: right;">1159.5</td>
-<td style="text-align: right;">807614.6</td>
-<td style="text-align: right;">24691.9</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">SolWaste</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">2.1</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">64.2</td>
-<td style="text-align: right;">4.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">SolWasteP</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">29.9</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">32.2</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">TotPop19</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">4753.2</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">23390.0</td>
-<td style="text-align: right;">2127.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Tox_Rel</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">3018.0</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">96985.6</td>
-<td style="text-align: right;">4902.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Tox_Rel_P</td>
-<td style="text-align: right;">3747</td>
-<td style="text-align: right;">69.5</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">24.3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Traffic</td>
-<td style="text-align: right;">3728</td>
-<td style="text-align: right;">1340.7</td>
-<td style="text-align: right;">20.7</td>
-<td style="text-align: right;">6836.5</td>
-<td style="text-align: right;">954.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">TrafficP</td>
-<td style="text-align: right;">3728</td>
-<td style="text-align: right;">58.3</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">27.2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Unempl</td>
-<td style="text-align: right;">3607</td>
-<td style="text-align: right;">6.3</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">43.9</td>
-<td style="text-align: right;">3.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">UnemplP</td>
-<td style="text-align: right;">3607</td>
-<td style="text-align: right;">52.3</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">27.3</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">White</td>
-<td style="text-align: right;">3728</td>
-<td style="text-align: right;">31.2</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">97.4</td>
-<td style="text-align: right;">25.0</td>
-</tr>
-</tbody>
-</table>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">SoCal_basic</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 6
+  variable  count average    min   max stdev
+  &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 AAPI       3728   13.3  0       87.6  14.8
+2 AfricanAm  3728    6.44 0       84.7  10.1
+3 Asthma     3737   50.4  4.28   203.   26.9
+4 AsthmaP    3737   49.7  0.0125  99.9  27.7
+5 CIscore    3693   33.9  1.80    82.4  16.7
+6 CIscoreP   3693   59.9  0.151  100.   27.3</code></pre>
 </div>
 </div>
 <p>And of course, we can combine our functions to dig even deeper. This example focuses on just a few variables to group the data into smaller subsets of County.</p>
@@ -1062,167 +584,27 @@ Geodetic CRS:  WGS 84</code></pre>
 <pre><code>`summarise()` has grouped output by 'variable'. You can override using the
 `.groups` argument.</code></pre>
 </div>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">SoCal_complicated</span>, digits <span class="op">=</span> <span class="fl">1</span>, caption <span class="op">=</span> <span class="st">'An example summary Table'</span>,</span>
-<span>      format.args <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>scientific <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<caption>An example summary Table</caption>
-<thead><tr class="header">
-<th style="text-align: left;">variable</th>
-<th style="text-align: left;">County</th>
-<th style="text-align: right;">count</th>
-<th style="text-align: right;">average</th>
-<th style="text-align: right;">min</th>
-<th style="text-align: right;">max</th>
-<th style="text-align: right;">stdev</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">AsthmaP</td>
-<td style="text-align: left;">Los Angeles</td>
-<td style="text-align: right;">2334</td>
-<td style="text-align: right;">53.4</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">99.3</td>
-<td style="text-align: right;">28.2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AsthmaP</td>
-<td style="text-align: left;">Orange</td>
-<td style="text-align: right;">582</td>
-<td style="text-align: right;">27.9</td>
-<td style="text-align: right;">0.1</td>
-<td style="text-align: right;">70.4</td>
-<td style="text-align: right;">18.4</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">AsthmaP</td>
-<td style="text-align: left;">Riverside</td>
-<td style="text-align: right;">453</td>
-<td style="text-align: right;">49.6</td>
-<td style="text-align: right;">2.9</td>
-<td style="text-align: right;">94.1</td>
-<td style="text-align: right;">22.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AsthmaP</td>
-<td style="text-align: left;">San Bernardino</td>
-<td style="text-align: right;">368</td>
-<td style="text-align: right;">60.9</td>
-<td style="text-align: right;">0.9</td>
-<td style="text-align: right;">99.9</td>
-<td style="text-align: right;">24.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CIscoreP</td>
-<td style="text-align: left;">Los Angeles</td>
-<td style="text-align: right;">2297</td>
-<td style="text-align: right;">66.2</td>
-<td style="text-align: right;">0.3</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">26.2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CIscoreP</td>
-<td style="text-align: left;">Orange</td>
-<td style="text-align: right;">580</td>
-<td style="text-align: right;">42.4</td>
-<td style="text-align: right;">0.2</td>
-<td style="text-align: right;">97.4</td>
-<td style="text-align: right;">26.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CIscoreP</td>
-<td style="text-align: left;">Riverside</td>
-<td style="text-align: right;">450</td>
-<td style="text-align: right;">48.8</td>
-<td style="text-align: right;">1.1</td>
-<td style="text-align: right;">99.3</td>
-<td style="text-align: right;">23.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CIscoreP</td>
-<td style="text-align: left;">San Bernardino</td>
-<td style="text-align: right;">366</td>
-<td style="text-align: right;">61.2</td>
-<td style="text-align: right;">4.3</td>
-<td style="text-align: right;">99.6</td>
-<td style="text-align: right;">23.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CardiovasP</td>
-<td style="text-align: left;">Los Angeles</td>
-<td style="text-align: right;">2334</td>
-<td style="text-align: right;">54.4</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">99.2</td>
-<td style="text-align: right;">27.0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CardiovasP</td>
-<td style="text-align: left;">Orange</td>
-<td style="text-align: right;">582</td>
-<td style="text-align: right;">33.0</td>
-<td style="text-align: right;">0.2</td>
-<td style="text-align: right;">77.4</td>
-<td style="text-align: right;">17.7</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">CardiovasP</td>
-<td style="text-align: left;">Riverside</td>
-<td style="text-align: right;">453</td>
-<td style="text-align: right;">71.9</td>
-<td style="text-align: right;">2.6</td>
-<td style="text-align: right;">99.4</td>
-<td style="text-align: right;">22.5</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">CardiovasP</td>
-<td style="text-align: left;">San Bernardino</td>
-<td style="text-align: right;">368</td>
-<td style="text-align: right;">77.3</td>
-<td style="text-align: right;">14.2</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">19.0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">LowBirWP</td>
-<td style="text-align: left;">Los Angeles</td>
-<td style="text-align: right;">2279</td>
-<td style="text-align: right;">55.4</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">99.9</td>
-<td style="text-align: right;">29.2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">LowBirWP</td>
-<td style="text-align: left;">Orange</td>
-<td style="text-align: right;">571</td>
-<td style="text-align: right;">42.8</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">99.4</td>
-<td style="text-align: right;">26.5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">LowBirWP</td>
-<td style="text-align: left;">Riverside</td>
-<td style="text-align: right;">430</td>
-<td style="text-align: right;">49.7</td>
-<td style="text-align: right;">0.1</td>
-<td style="text-align: right;">100.0</td>
-<td style="text-align: right;">25.8</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">LowBirWP</td>
-<td style="text-align: left;">San Bernardino</td>
-<td style="text-align: right;">362</td>
-<td style="text-align: right;">60.1</td>
-<td style="text-align: right;">0.2</td>
-<td style="text-align: right;">99.8</td>
-<td style="text-align: right;">25.6</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">SoCal_complicated</span>, <span class="fl">15</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 15 × 7
+# Groups:   variable [4]
+   variable   County         count average     min   max stdev
+   &lt;chr&gt;      &lt;chr&gt;          &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 AsthmaP    Los Angeles     2334    53.4  0.0125  99.3  28.2
+ 2 AsthmaP    Orange           582    27.9  0.137   70.4  18.4
+ 3 AsthmaP    Riverside        453    49.6  2.88    94.1  22.5
+ 4 AsthmaP    San Bernardino   368    60.9  0.897   99.9  24.5
+ 5 CIscoreP   Los Angeles     2297    66.2  0.290  100.   26.2
+ 6 CIscoreP   Orange           580    42.4  0.151   97.4  26.1
+ 7 CIscoreP   Riverside        450    48.8  1.06    99.3  23.9
+ 8 CIscoreP   San Bernardino   366    61.2  4.34    99.6  23.0
+ 9 CardiovasP Los Angeles     2334    54.4  0.0499  99.2  27.0
+10 CardiovasP Orange           582    33.0  0.249   77.4  17.7
+11 CardiovasP Riverside        453    71.9  2.62    99.4  22.5
+12 CardiovasP San Bernardino   368    77.3 14.2    100    19.0
+13 LowBirWP   Los Angeles     2279    55.4  0       99.9  29.2
+14 LowBirWP   Orange           571    42.8  0       99.4  26.5
+15 LowBirWP   Riverside        430    49.7  0.128  100.   25.8</code></pre>
 </div>
 </div>
 
