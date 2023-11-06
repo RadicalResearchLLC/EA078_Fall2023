@@ -39,6 +39,7 @@ book:
   #    - animate.qmd
   #    - enviroVoters.qmd
       - research.qmd
+      - joins.qmd  
   #    - maps4.qmd
   #    - markdown.qmd  
   #    - School_near_warehouses.qmd
