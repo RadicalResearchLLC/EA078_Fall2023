@@ -1,0 +1,174 @@
+# Joins {#sec-joins}
+
+::: {.callout-note appearance="simple"}
+Today is going to be a few examples riffing on class Group Projects
+:::
+  
+## Load libraries
+
+```{r}
+library(tidyverse)
+library(sf)
+library(leaflet)
+```
+
+## Southern California City Boundaries  
+
+Many groups are looking at areas of Southern California.  Let's grab a layer of city boundaries from [SCAG](https://gisdata-scag.opendata.arcgis.com/datasets/city-boundaries-scag-region/explore).
+
+Doing this one time, point and click is ok. Here are the steps.
+
+-   Go to the linked SCAG URL.
+-   Click the `Download` button.
+-   Choose a file type - I'd suggest `GeoJSON`
+-   Press Download Options - select 'Download file previously generated on...`
+-   Download the file - mine was named `City_Boundaries_–_SCAG_Region.geojson`
+-   Move it to your working directory 
+-   Read in the geojson file using `read_sf()` - (see code below)
+-   Transform to WGS84 coordinate reference system (see code chunk below)
+-   Make a map (see code chunk below)
+
+```{r}
+#| label: read, and transform steps for SoCal Cities
+#| echo: true
+
+#read the data
+IE_cities <- read_sf(dsn = 'City_Boundaries_–_SCAG_Region.geojson') |>  
+ st_transform(crs = 4326) |> 
+ # Let's only include the cities in Riverside and San Bernardino
+ filter(COUNTY %in% c('Riverside', 'San Bernardino')) |>
+  # remove the very far away desert cities and unincorporated county areas
+  filter(CITY != 'Unincorporated' & CITY != 'Needles' & CITY != 'Blythe') #|> 
+
+head(IE_cities)
+
+```
+
+@fig-IE_cities shows a map of Cities using `ggplot` and `geom_sf`
+
+```{r}
+#| label: fig-IE_cities
+#| echo: true
+#| warning: false
+#| fig-cap: California Counties
+IE_cities |> 
+  ggplot() +
+  geom_sf() +
+  theme_void() + 
+  geom_sf_text(aes(label = CITY), size = 1.5) +
+  labs(x = '', y = '')
+
+```
+
+@fig-IE_leaflet shows a leaflet map of the cities, zoomed into the main valley.
+
+```{r}
+#| label: fig-IE_leaflet
+#| echo: true
+#| warning: false
+#| fig-cap: IE cities on a leaflet map
+#| 
+IE_cities |> 
+  #filter(CITY != 'Unincorporated') |> 
+  leaflet() |> 
+  addTiles() |> 
+  addPolygons(color = 'black',
+              weight = 1,
+              fillOpacity = 0.3,
+              label = ~CITY)
+```
+
+### Database Joins - data science lesson #1
+
+Dataset `IE_cities` has the geospatial information on city boundaries. Some of the other datasets you are using have the information you would like to compare.  How can we merge or join these disparate data layers for visualization and analysis?
+                          
+There are two types of joins that can help to merge disparate datasets.
+
+The first type of join is based on unique records in both datasets.  If you have a column in dataset *A* and it has some matching records in dataset *B*, there are ways to join the two datasets.
+
+Here's all the permutations.                                                                                                                                                                          -   `inner_join()` - keep only records present in both dataset A and B.                            -   `left_join()` - keep **all** records from the dataset A and only matching variables from B. Fill missing with **NA**.
+-   `right_join()` - keep **all** records from the dataset B and only matching variables from A. Fill missing with **NA**.
+-   `full_join()` - keep **all** records from A and B - fill **NA** in any records where dataset is missing from one of the datasets.                                                                  -   `anti_join()` - keep **only** records from A that don't occur in B.
+
+The example below shows Venn diagrams of all the permutations.
+
+![Join Venn Diagrams - credit **Tavareshugo** github](https://tavareshugo.github.io/r-intro-tidyverse-gapminder/fig/07-dplyr_joins.svg)
+
+## Spatial Joins - Data science lesson #2 
+
+More interesting and probably more useful for your group projects are spatial joins.
+
+Spatial joins use geospatial information to identify overlapping geometries in space.  Thus, if one has two geospatial datasets, one can quickly identify intersections of interest.
+
+Let's try a simple example using the community gardens dataset and the IE_cities dataset.
+
+First, import the community gardens dataset, which we worked on in class a few weeks ago.
+
+```{r}
+#| echo: true
+
+gardens <- st_read(dsn = 'CommunityGardens.geojson') |> 
+  st_transform(crs = 4326)
+
+head(gardens)
+
+```
+
+Now this dataset is pretty easy to manipulate because it already has a `City` field indicated. But maybe you don't know all the IE cities or counties?  Geospatially, we can use `sf::st_filter()` to select any garden locations that intersect the city boundaries in the IE.
+
+```{r}
+#| label: spatial filter example
+#| echo: true
+
+#This is necessary to prevent an error with non-planar geometry that happens in sf
+sf_use_s2(FALSE)
+
+gardens |> 
+  st_filter(IE_cities) |> 
+  leaflet() |> 
+  addTiles() |> 
+  addAwesomeMarkers(label = ~Name)
+
+```
+
+## Example 2 - Average biodiversity by city
+
+The first example was easy.  The second is going to be two steps - a spatial join, then a summary of statistical values.
+
+First grab the biodiveristy dataset.  
+
+```{r}
+#| echo: true
+
+biodiversity <- st_read(dsn = 'Biodiversity.geojson') |> 
+  st_transform(crs = 4326) |> 
+  st_zm()
+
+```
+
+Now we're going to filter it just using the same cities, and make a map of biodiversity within the cities. @fig-BioCities shows that map. 
+
+```{r}
+#| label: fig-BioCities
+#| echo: true
+#| fig-cap: IE biodiversity by cities.
+
+palBD <- colorFactor(domain = biodiversity$RANK, palette = 'Spectral')
+
+biodiversity |> 
+  st_filter(IE_cities, .predicate = st_intersects) |> 
+  leaflet() |> 
+  addProviderTiles(provider = providers$CartoDB.Positron) |> 
+  addPolygons(color = ~palBD(RANK),
+              weight = 1) |> 
+  addLegend(title = 'Biodiversity',
+            values = ~RANK,
+            pal = palBD) |> 
+  addPolygons(data = IE_cities,
+              color = 'black',
+              weight = 1,
+              fillOpacity = 0)
+```
+
+This is very strange and weird.  Much of the biodiversity layer is not within the cities.  The biodiversity polygons are not individual hexes, but are instead aggregated lumped into aggregated hexes.  If we choose a different `.predicate` argument like `st_contains` or `st_overlaps` we lose much of the data.  
+
