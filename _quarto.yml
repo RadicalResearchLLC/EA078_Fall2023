@@ -38,7 +38,7 @@ book:
   #    - shiny.qmd
   #    - animate.qmd
   #    - enviroVoters.qmd
-      - research.qmd
+      - research.qmd  
       - joins.qmd  
   #    - maps4.qmd
   #    - markdown.qmd  
