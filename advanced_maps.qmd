@@ -223,11 +223,5 @@ leaflet() |>
 - Add a `layersControl()` to this map to toggle on and off the gardens and Hispanic layers.
 
 
-### Geospatial analysis using `st_filter()`
-
-Let's compare the warehouses to the census tracts and make a simple relationship plot.  This is a bit advanced data science, but is an example of how to take two layers and combine the information to explore and inform your ideas about a dataset.  
-
-
-
 
 
