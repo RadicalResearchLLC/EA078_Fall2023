@@ -1,0 +1,172 @@
+# More Spatial Joins {#sec-spatial_joins}
+
+::: {.callout-note appearance="simple"}
+Today we will be focusing on the practice of fancy geospatial data analysis and visualization.
+:::
+
+## Overview
+
+Two quick things.
+
+- st_intersection (vs st_filter) for clipping to a boundary
+- summarizing statistics using clipped data
+
+### Libraries
+
+```{r}
+#| label: load libraries
+#| echo: true
+
+library(tidyverse)
+library(sf)
+library(leaflet)
+
+```
+
+## Data
+
+I am going to use an in-class project example from the Farmlands group.
+
+We'll pull in California Counties for our boundary and farmlands for the dataset of interest.
+
+County boundaries are available at the [California open data portal](https://data.ca.gov/dataset/ca-geographic-boundaries).  
+
+Check the name you download it as 
+
+- if a shapefile you point to the folder directory `CA_Counties`
+- if a geojson you point to the file itself
+
+We'll filter it just for Imperial County in this example of farmlands.
+
+```{r}
+#| echo: true
+
+Imperial <- st_read(dsn = 'CA_Counties') |> 
+  filter(NAME == 'Imperial') |> 
+  st_transform(crs =4326)
+
+```
+
+Let's look at @fig-Imperial for Imperial County boundary to see if it worked.
+
+```{r}
+#| echo: true
+#| label: fig-Imperial
+#| fig-cap: Imperial County boundary
+
+leaflet() |> 
+  addTiles() |> 
+  addPolygons(data = Imperial,
+              color = 'black',
+              fillOpacity = 0.1)
+
+
+```
+
+Now let's load the Agland dataset.
+
+```{r}
+#| echo: true
+
+Agland <- st_read('AgLand.geojson') |>  
+  st_transform(crs=4326)
+
+```
+
+## Summary stats pre-clipping
+
+Let's make a barchart of the area of farmland in the SCAG planning area.
+
+The Agland file has a variable called 'Shape_Area'.  Let's summarize the total land in each category on a simple bar chart.
+
+@fig-FarmBar
+
+```{r}
+#| echo: true
+#| label: fig-FarmBar
+#| fig-cap: Column chart of area of each farmland type in SoCal
+
+Agland |> 
+  #remove geometry
+  st_set_geometry(value=NULL) |> 
+  group_by(TYPE) |> 
+  summarize(sumArea = sum(Shape_Area)) |> 
+  ggplot(aes(x = sumArea, y = TYPE)) +
+  geom_col() +
+  theme_bw() +
+  scale_x_continuous(labels = scales::comma_format()) +
+  labs(x = 'Area (units)', y = 'Category', title = 'Farmland Categories in SoCal')
+
+```
+
+Cool!
+
+## Clip Farmland data to Imperial County
+
+Previously, I have showed `st_filter` as the function to use for spatial joins.  The default type of spatial join in `st_filter` is classified as `st_intersect`. 
+
+Let's show an example of `st_intersect` being applied to the Agland dataset to see how we might get a different result if we focus on a subset of the data. 
+
+When doing spatial joins, it can be important to turn off spherical geometry which is the first bit of code `sf_use_s2(FALSE)`.
+
+
+```{r}
+#| echo: true
+#| label: st_intersection to filter the dataset
+
+sf_use_s2(FALSE)
+
+Imp_ag <- Agland |> 
+  st_intersection(Imperial)
+
+```
+Check the map in @fig-ImperialFarms to see it worked.
+
+```{r}
+#| echo: true
+#| label: fig-ImperialFarms
+#| fig-cap: Agland clipped to Imperial County
+
+palFarms <- colorFactor(palette = 'Set2', domain = Imp_ag$TYPE)
+
+leaflet() |> 
+  addProviderTiles(provider = providers$Esri.WorldImagery) |> 
+  addPolygons(data = Imp_ag,
+              color = ~palFarms(TYPE),
+              weight = 1,
+              fillOpacity = 0.8) |> 
+  addLegend(data = Imp_ag,
+            title = 'Farmland type',
+            pal = palFarms,
+            values = ~TYPE)
+
+```
+
+Cool!  
+
+### Summary Stats in Imperial County
+
+Now let's do a bar chart for just the Imperial County data.  
+
+Follow the same steps as in @fig-FarmBar but apply them to `Imp_ag`.
+
+@fig-ImperialCol shows the result.
+
+```{r}
+#| echo: true
+#| label: fig-ImperialCol
+#| fig-cap: Column chart of area of each farmland type in SoCal
+
+Imp_ag |> 
+  #remove geometry
+  st_set_geometry(value=NULL) |> 
+  group_by(TYPE) |> 
+  summarize(sumArea = sum(Shape_Area)) |> 
+  ggplot(aes(x = sumArea, y = TYPE)) +
+  geom_col() +
+  theme_bw() +
+  scale_x_continuous(labels = scales::comma_format()) +
+  labs(x = 'Area (units)', y = 'Category', title = 'Farmland Categories in Imperial County')
+
+```
+
