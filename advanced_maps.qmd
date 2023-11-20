@@ -6,10 +6,10 @@ Today we will be focusing on the practice of fancy geospatial data analysis and 
 
 ## Overview
 
-Today will cover three things.  
+Today will cover three things.
 
-- Layer Controls
-- Buffers
+-   Layer Controls
+-   Buffers
 
 ### Libraries
 
@@ -22,10 +22,10 @@ library(sf)
 library(leaflet)
 
 ```
-  
+
 ## Data
 
-We'll use the CalEnviroScreen dataset (SoCalEJ) from other classes and the warehouses dataset for San Bernardino for this example.  
+We'll use the CalEnviroScreen dataset (SoCalEJ) from other classes and the warehouses dataset for San Bernardino for this example.
 
 Let's load the old SoCalEJ but only the San Bernardino County census tracts. We'll call it `SBDCoEJ` to differentiate it.
 
@@ -54,9 +54,9 @@ SBDwarehouses <- st_read(WH.url) |>
 
 ### Example 1 - Layers Control on Leaflet maps
 
-Let's make a leaflet map showing the distribution of Hispanic census tracts in San Bernardino County.  
+Let's make a leaflet map showing the distribution of Hispanic census tracts in San Bernardino County.
 
-First, we need to define the color palette.  Feel free to choose a different palette.  I'll choose five quantile bins to get a round 20% number.
+First, we need to define the color palette. Feel free to choose a different palette. I'll choose five quantile bins to get a round 20% number.
 
 ```{r}
 #| echo: true
@@ -89,7 +89,7 @@ leaflet()  |>
 
 Pretty good.
 
-Now let's make a map with warehouses.  We'll make the warehouses black and show the same area.
+Now let's make a map with warehouses. We'll make the warehouses black and show the same area.
 
 @fig-SBDwarehouses shows the result.
 
@@ -113,9 +113,9 @@ leaflet()  |>
 
 Now let's combine the two maps and show both at the same time.
 
-All we need to do here is pull the `AddPolygons()` and `AddLegend()` functions from both individual maps into a single code chunk.  No new code at this point.  Note that each call has to include the data we are pointing to individually.
+All we need to do here is pull the `AddPolygons()` and `AddLegend()` functions from both individual maps into a single code chunk. No new code at this point. Note that each call has to include the data we are pointing to individually.
 
-@fig-wh_and_hispanicTracts shows the combined overlays.  
+@fig-wh_and_hispanicTracts shows the combined overlays.
 
 ```{r}
 #| label: fig-wh_and_hispanicTracts
@@ -144,9 +144,9 @@ leaflet()  |>
 
 Now let's add in the layers control to toggle the individual layers on and off.
 
-This requires one new function `addLayersControl()`.  It includes an overlay option called `overlayGroups`. Lastly we add a new argument in the existing code chunk that defines each layers as a `group`.  Note that including group identifiers for both Polygons and Legends is required to have them both toggle on and off.
+This requires one new function `addLayersControl()`. It includes an overlay option called `overlayGroups`. Lastly we add a new argument in the existing code chunk that defines each layers as a `group`. Note that including group identifiers for both Polygons and Legends is required to have them both toggle on and off.
 
-@fig-overlay shows the working toggles as a little stack in the upper right corner above the legends.  
+@fig-overlay shows the working toggles as a little stack in the upper right corner above the legends.
 
 ```{r}
 #| label: fig-overlay
@@ -181,13 +181,13 @@ leaflet()  |>
 
 Voila!
 
-### Example 2 - Create a  buffer around a point or polygon.
+### Example 2 - Create a buffer around a point or polygon.
 
-The function `st_buffer()` from the `sf` package allows one to generate larger shapes surrounding an existing point, line, or polygon.  
+The function `st_buffer()` from the `sf` package allows one to generate larger shapes surrounding an existing point, line, or polygon.
 
-It only requires the existing dataset and a distance.  The only tricky part is figuring out the **unit** one is buffering in.  In some coordinate reference systems, you are in meters.  In others, you are in decimal degrees.  The buffer distance of 1000 meters is useful, but 1000 latitude degrees goes off map.  
+It only requires the existing dataset and a distance. The only tricky part is figuring out the **unit** one is buffering in. In some coordinate reference systems, you are in meters. In others, you are in decimal degrees. The buffer distance of 1000 meters is useful, but 1000 latitude degrees goes off map.
 
-Allow me to demonstrate a buffer map with the Gardens dataset. We'll do a coordinate transformation to NAD83 (a meter based projection) and then back.  
+Allow me to demonstrate a buffer map with the Gardens dataset. We'll do a coordinate transformation to NAD83 (a meter based projection) and then back.
 
 ```{r}
 #| echo: true
@@ -220,8 +220,4 @@ leaflet() |>
 
 #### Class Exercise
 
-- Add a `layersControl()` to this map to toggle on and off the gardens and Hispanic layers.
-
-
-
-
+-   Add a `layersControl()` to this map to toggle on and off the gardens and Hispanic layers.

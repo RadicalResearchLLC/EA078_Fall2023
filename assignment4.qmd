@@ -56,7 +56,9 @@ Total of 150 points
 
 ## Group Visualization
 
-Probably due in person at 9:45 AM on **December 4th, 2023** unless we want to do presentations during Final Exam time period.  
+**Due Date**
+
+A group presentation on the progress to date will occur on **December 4th, 2023**.  Final group visualization will be due **December 12th, 2023** at noon (PST).    
 
 Assignment is a visualization on the team's chosen topic. Assignment should provide an exported visualization `.png, .pdf, .html` and the `.R script` used to generate the visualization(s). Source(s) of data should be clearly identified as a comment within the .R script.  
 

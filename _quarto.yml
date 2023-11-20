@@ -35,13 +35,13 @@ book:
       - assignment3.qmd  
     - part: projects.qmd  
       chapters: 
-  #    - shiny.qmd
   #    - animate.qmd
   #    - enviroVoters.qmd
       - research.qmd  
       - joins.qmd  
       - advanced_maps.qmd
-      - spatial_joins.qmd
+      - spatial_joins.qmd  
+      - shiny.qmd
   #    - maps4.qmd
   #    - markdown.qmd  
   #    - School_near_warehouses.qmd
