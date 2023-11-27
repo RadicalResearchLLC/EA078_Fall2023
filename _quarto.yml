@@ -42,7 +42,7 @@ book:
       - advanced_maps.qmd
       - spatial_joins.qmd  
       - shiny.qmd
-  #    - maps4.qmd
+      - maps4.qmd
   #    - markdown.qmd  
   #    - School_near_warehouses.qmd
   #    - KQED.qmd
